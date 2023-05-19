@@ -132,10 +132,6 @@ const props = defineProps<{
 }
 
 
-/*// Border Animation END//*/
-
-
-
 .center-box {
   height: 120vh;
   display: flex;
