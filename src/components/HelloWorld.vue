@@ -1,12 +1,40 @@
 <script setup lang="ts">
+import Card from './CardPowerUp.vue';
+import { HeroPowerUpCards } from '../constant/game';
+
 defineProps<{ msg: string }>()
 </script>
 
 <template>
-  <!-- quasar card with welcome message -->
-  <q-card class="q-pa-xl bg-yellow-300 to-yellow-200">
-    <span class="text-black text-2xl">Welcome to Catch Game</span>
-  </q-card>
+  <div class="q-pa-md example-row-equal-width">
+    <div class="row">
+      <Card :card="HeroPowerUpCards.Aeroporto" />
+    </div>
+    <div class="row">
+      <Card :card="HeroPowerUpCards.Blindar" />
+    </div>
+    <div class="row">
+      <Card :card="HeroPowerUpCards.Desinfluenciar" />
+    </div>
+    <div class="row">
+      <Card :card="HeroPowerUpCards.Hackear" />
+    </div>
+    <div class="row">
+      <Card :card="HeroPowerUpCards.Invasao" />
+    </div>
+    <div class="row">
+      <Card :card="HeroPowerUpCards.JatoParticular" />
+    </div>
+    <div class="row">
+      <Card :card="HeroPowerUpCards.Motivar" />
+    </div>
+    <div class="row">
+      <Card :card="HeroPowerUpCards.Radar" />
+    </div>
+    <div class="row">
+      <Card :card="HeroPowerUpCards.Satelite" />
+    </div>
+  </div>
 </template>
 
 <style scoped></style>

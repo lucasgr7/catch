@@ -4,7 +4,7 @@
 <template>
   <q-layout>
 
-    <q-page-container>
+    <q-page-container class="w-fit w-screen">
       <router-view />
     </q-page-container>
 
