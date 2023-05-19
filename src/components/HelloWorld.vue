@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import Card from './CardPowerUp.vue';
 import { HeroPowerUpCards } from '../constant/game';
+import Debug from './Debug.vue';
 
 defineProps<{ msg: string }>()
 </script>
 
 <template>
+  <Debug />
   <div class="q-pa-md example-row-equal-width">
     <div class="row">
       <Card :card="HeroPowerUpCards.Aeroporto" />
