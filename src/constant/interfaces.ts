@@ -75,10 +75,10 @@ export interface MapState {
 }
 
 export interface Game {
-  id: number;
   map: string;
   players: Player[];
   states: MapState[];
+  name: string;
 }
 
 export interface PlayerSessionState {

@@ -1,4 +1,4 @@
-import { useGameCollection } from "./useGame";
+import { useGame } from "./useGame";
 import { PlayerSessionState } from "../constant/interfaces";
 import { useLocalStorage } from "@vueuse/core";
 
@@ -7,7 +7,7 @@ const localStorageRef = useLocalStorage('action', {} as PlayerSessionState);
 
 // create composable
 export default function usePlayerBase() {
-  const {getMyPlayer} = useGameCollection();
+  const {getMyPlayer} = useGame();
 
   // register a new action by the player to make him wait
   // saves into a localStorage the action name and the start time and the end time

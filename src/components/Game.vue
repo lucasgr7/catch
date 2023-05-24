@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { useGameCollection } from '../composables/useGame';
+import { useGame } from '../composables/useGame';
 import Debug from './Debug.vue';
 import ModalWaitAction from './ModalWaitAction.vue';
 
-const { getMyPlayer } = useGameCollection();
+const { getMyPlayer } = useGame();
 </script>
 <template>
   <ModalWaitAction />
