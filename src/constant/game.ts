@@ -1,35 +1,7 @@
-// enum for the classes, villain, philosofer, militar and scientist
-export enum Classes {
-  Villain = "Villain",
-  Philosofer = "Philosofer",
-  Militar = "Militar",
-  Scientist = "Scientist",
-}
+import { CardsIdentification, Classes } from "./interfaces";
 
-export enum CardsIdentification {
-  Radar = "Radar",
-  Hackear = "Hackear",
-  Satelite = "Satelite",
-  Desinfluenciar = "Desinfluenciar",
-  Blindar = "Blindar",
-  Motivar = "Motivar",
-  Aeroporto = "Aeroporto",
-  JatoParticular = "JatoParticular",
-  Invasao = "Invasao",
-}
-// enum for the types of the cards
-export interface Card {
-  id: CardsIdentification;
-  title: string;
-  description: string;
-  class: Classes;
-  level: number;
-  castTime: number;
-  cooldownTime: number;
-  requirements?: string;
-}
 
-const ScientistsCards = {
+export const ScientistsCards = {
   Radar: {
     id: CardsIdentification.Radar,
     title: "Radar",
@@ -59,7 +31,7 @@ const ScientistsCards = {
   },
 };
 
-const PhilosoferCards = {
+export const PhilosoferCards = {
   Desinfluenciar: {
     id: CardsIdentification.Desinfluenciar,
     title: "Desinfluenciar",
@@ -91,7 +63,7 @@ const PhilosoferCards = {
   },
 };
 
-const MilitarCards = {
+export const MilitarCards = {
   Aeroporto: {
     id: CardsIdentification.Aeroporto,
     title: "Aeroporto",

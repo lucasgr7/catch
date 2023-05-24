@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import usePlayerBase from "./usePlayerBase";
+import usePlayerBase from "./usePlayerEvents";
 
 export default function useHero() {
   // state

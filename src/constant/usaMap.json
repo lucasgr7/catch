@@ -1,0 +1,254 @@
+{
+  "states": [
+    {
+      "id": "AL",
+      "name": "Alabama",
+      "neighbors": ["FL", "GA", "MS", "TN"]
+    },
+    {
+      "id": "AK",
+      "name": "Alaska",
+      "neighbors": []
+    },
+    {
+      "id": "AZ",
+      "name": "Arizona",
+      "neighbors": ["CA", "NM", "NV", "UT"]
+    },
+    {
+      "id": "AR",
+      "name": "Arkansas",
+      "neighbors": ["LA", "MO", "MS", "OK", "TN", "TX"]
+    },
+    {
+      "id": "CA",
+      "name": "California",
+      "neighbors": ["AZ", "NV", "OR"]
+    },
+    {
+      "id": "CO",
+      "name": "Colorado",
+      "neighbors": ["AZ", "KS", "NE", "NM", "OK", "UT", "WY"]
+    },
+    {
+      "id": "CT",
+      "name": "Connecticut",
+      "neighbors": ["MA", "NY", "RI"]
+    },
+    {
+      "id": "DE",
+      "name": "Delaware",
+      "neighbors": ["MD", "NJ", "PA"]
+    },
+    {
+      "id": "FL",
+      "name": "Florida",
+      "neighbors": ["AL", "GA"]
+    },
+    {
+      "id": "GA",
+      "name": "Georgia",
+      "neighbors": ["AL", "FL", "NC", "SC", "TN"]
+    },
+    {
+      "id": "HI",
+      "name": "Hawaii",
+      "neighbors": []
+    },
+    {
+      "id": "ID",
+      "name": "Idaho",
+      "neighbors": ["MT", "NV", "OR", "UT", "WA", "WY"]
+    },
+    {
+      "id": "IL",
+      "name": "Illinois",
+      "neighbors": ["IA", "IN", "KY", "MO", "WI"]
+    },
+    {
+      "id": "IN",
+      "name": "Indiana",
+      "neighbors": ["IL", "KY", "MI", "OH"]
+    },
+    {
+      "id": "IA",
+      "name": "Iowa",
+      "neighbors": ["IL", "MN", "MO", "NE", "SD", "WI"]
+    },
+    {
+      "id": "KS",
+      "name": "Kansas",
+      "neighbors": ["CO", "MO", "NE", "OK"]
+    },
+    {
+      "id": "KY",
+      "name": "Kentucky",
+      "neighbors": ["IL", "IN", "MO", "OH", "TN", "VA", "WV"]
+    },
+    {
+      "id": "LA",
+      "name": "Louisiana",
+      "neighbors": ["AR", "MS", "TX"]
+    },
+    {
+      "id": "ME",
+      "name": "Maine",
+      "neighbors": ["NH"]
+    },
+    {
+      "id": "MD",
+      "name": "Maryland",
+      "neighbors": ["DE", "PA", "VA", "WV"]
+    },
+    {
+      "id": "MA",
+      "name": "Massachusetts",
+      "neighbors": ["CT", "NH", "NY", "RI", "VT"]
+    },
+    {
+      "id": "MI",
+      "name": "Michigan",
+      "neighbors": ["IN", "OH", "WI"]
+    },
+    {
+      "id": "MN",
+      "name": "Minnesota",
+      "neighbors": ["IA", "ND", "SD", "WI"]
+    },
+    {
+      "id": "MS",
+      "name": "Mississippi",
+      "neighbors": ["AL", "AR", "LA", "TN"]
+    },
+    {
+      "id": "MO",
+      "name": "Missouri",
+      "neighbors": ["AR", "IA", "IL", "KS", "KY", "NE", "OK", "TN"]
+    },
+    {
+      "id": "MT",
+      "name": "Montana",
+      "neighbors": ["ID", "ND", "SD", "WY"]
+    },
+    {
+      "id": "NE",
+      "name": "Nebraska",
+      "neighbors": ["CO", "IA", "KS", "MO", "SD", "WY"]
+    },
+    {
+      "id": "NV",
+      "name": "Nevada",
+      "neighbors": ["AZ", "CA", "ID", "OR", "UT"]
+    },
+    {
+      "id": "NH",
+      "name": "New Hampshire",
+      "neighbors": ["MA", "ME", "VT"]
+    },
+    {
+      "id": "NJ",
+      "name": "New Jersey",
+      "neighbors": ["DE", "NY", "PA"]
+    },
+    {
+      "id": "NM",
+      "name": "New Mexico",
+      "neighbors": ["AZ", "CO", "OK", "TX"]
+    },
+    {
+      "id": "NY",
+      "name": "New York",
+      "neighbors": ["CT", "MA", "NJ", "PA", "VT"]
+    },
+    {
+      "id": "NC",
+      "name": "North Carolina",
+      "neighbors": ["GA", "SC", "TN", "VA"]
+    },
+    {
+      "id": "ND",
+      "name": "North Dakota",
+      "neighbors": ["MN", "MT", "SD"]
+    },
+    {
+      "id": "OH",
+      "name": "Ohio",
+      "neighbors": ["IN", "KY", "MI", "PA", "WV"]
+    },
+    {
+      "id": "OK",
+      "name": "Oklahoma",
+      "neighbors": ["AR", "CO", "KS", "MO", "NM", "TX"]
+    },
+    {
+      "id": "OR",
+      "name": "Oregon",
+      "neighbors": ["CA", "ID", "NV", "WA"]
+    },
+    {
+      "id": "PA",
+      "name": "Pennsylvania",
+      "neighbors": ["DE", "MD", "NJ", "NY", "OH", "WV"]
+    },
+    {
+      "id": "RI",
+      "name": "Rhode Island",
+      "neighbors": ["CT", "MA"]
+    },
+    {
+      "id": "SC",
+      "name": "South Carolina",
+      "neighbors": ["GA", "NC"]
+    },
+    {
+      "id": "SD",
+      "name": "South Dakota",
+      "neighbors": ["IA", "MN", "MT", "NE", "ND", "WY"]
+    },
+    {
+      "id": "TN",
+      "name": "Tennessee",
+      "neighbors": ["AL", "AR", "GA", "KY", "MO", "MS", "NC", "VA"]
+    },
+    {
+      "id": "TX",
+      "name": "Texas",
+      "neighbors": ["AR", "LA", "NM", "OK"]
+    },
+    {
+      "id": "UT",
+      "name": "Utah",
+      "neighbors": ["AZ", "CO", "ID", "NV", "WY"]
+    },
+    {
+      "id": "VT",
+      "name": "Vermont",
+      "neighbors": ["MA", "NH", "NY"]
+    },
+    {
+      "id": "VA",
+      "name": "Virginia",
+      "neighbors": ["KY", "MD", "NC", "TN", "WV"]
+    },
+    {
+      "id": "WA",
+      "name": "Washington",
+      "neighbors": ["ID", "OR"]
+    },
+    {
+      "id": "WV",
+      "name": "West Virginia",
+      "neighbors": ["KY", "MD", "OH", "PA", "VA"]
+    },
+    {
+      "id": "WI",
+      "name": "Wisconsin",
+      "neighbors": ["IL", "IA", "MI", "MN"]
+    },
+    {
+      "id": "WY",
+      "name": "Wyoming",
+      "neighbors": ["CO", "ID", "MT", "NE", "SD", "UT"]
+    }
+  ]
+}
