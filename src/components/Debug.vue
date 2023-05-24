@@ -1,7 +1,9 @@
 <script lang="ts" setup>
-import useHero from '../composables/useHero'
+import { useGameCollection} from '../composables/useGame'
+import usePlayerBase from '../composables/usePlayerBase';
 
-const hero = useHero();
+const {addGame, addPlayerGame, getMyPlayer} = useGameCollection();
+const { move } = usePlayerBase();
 </script>
 <template>
   <q-card class="w-max text-black">
@@ -9,27 +11,26 @@ const hero = useHero();
     <q-card-section class="bg-slate-100 row text-black">
       Debug Panel
     </q-card-section>
-
-    player name: {{ hero.name }}
+    player name: {{ getMyPlayer().name }}
     <q-card-section class="bg-slate-300">
-      <div class="row">
-        <q-btn glossy @click="hero.move">
-          <span class="text-black">
-            Start Action move
+      <div class="row mt-4">
+        <q-btn glossy @click="move">
+          <span>
+            Move
           </span>
         </q-btn>
       </div>
       <div class="row mt-4">
-        <q-btn glossy>
+        <q-btn glossy @click="addGame">
           <span>
-            Start Influence Move
+            Add Game
           </span>
         </q-btn>
       </div>
       <div class="row mt-4">
-        <q-btn glossy>
+        <q-btn glossy @click="addPlayerGame('JQpeREJPUnuOMAecb0fb', 'johnny')">
           <span>
-            Start Fix state move
+            Push event to firebase
           </span>
         </q-btn>
       </div>

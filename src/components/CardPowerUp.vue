@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Card, CardsIdentification } from '../constant/game';
+import { Card, CardsIdentification } from '../constant/interfaces';
 import Pill from './Pill.vue';
 // create props for title, image, description, cooldownTime, castTime
 const props = defineProps<{
@@ -8,8 +8,6 @@ const props = defineProps<{
 
 
 </script>
-
-
 <template>
   <!-- START Box -->
   <div class="animated-border-box-glow" :class="`class${props.card.level}`"></div>
