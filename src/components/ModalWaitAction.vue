@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref, watchEffect } from 'vue';
-import usePlayerBase from '../composables/usePlayerBase';
+import usePlayerBase from '../composables/usePlayerEvents';
 import Timer from './Timer.vue';
 
 const showModal = ref(false);

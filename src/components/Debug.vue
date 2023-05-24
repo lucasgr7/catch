@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useGameCollection} from '../composables/useGame'
-import usePlayerBase from '../composables/usePlayerBase';
+import usePlayerBase from '../composables/usePlayerEvents';
 
 const {addGame, addPlayerGame, getMyPlayer} = useGameCollection();
 const { move } = usePlayerBase();
