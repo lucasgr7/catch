@@ -1,24 +1,24 @@
-import {  useDocument, useFirestore } from 'vuefire'
-import { doc } from 'firebase/firestore'
+import { useFirestore, useDocument } from 'vuefire';
+import { doc } from 'firebase/firestore';
 
-export function useGame(gameId: string) {
+export function useGame() {
   const db = useFirestore();
-  const game = useDocument(doc(db, 'games', gameId))
-  const playerUUID = localStorage.getItem('playerUUID');
 
+  const playerUUID = localStorage.getItem('playerUUID');
   // validations
-  if(!playerUUID){
+  if (!playerUUID) {
     throw new Error('Player UUID not found');
   }
 
-  
-
-  // watch(myGame, (game: any, old: any) => {
-  //   alert('games changed' + game.players.length)
-  // })
+  const getGame = async () => {
+    let gameId = localStorage.getItem('gameId') as string;
+    const gameRef = doc(db, 'games', gameId);
+    const { data: game, error } = await useDocument(gameRef);
+    return { game, error };
+  }
 
 
   return {
-    game
+    getGame
   };
 }

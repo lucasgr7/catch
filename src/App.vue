@@ -22,7 +22,7 @@ onBeforeMount(() => {
 
 <template>
   <q-layout>
-    <q-page-container class="w-fit w-screen">
+    <q-page-container>
       <router-view />
     </q-page-container>
 
