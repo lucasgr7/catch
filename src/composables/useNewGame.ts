@@ -30,7 +30,6 @@ export default function useNewGame() {
   // get all games in the collection
   async function getGames() {
     try {
-      debugger;
       const gamesRef = collection(db, 'games'); // Reference to the 'games' collection
       const querySnapshot = await getDocs(gamesRef); // Retrieve all documents in the collection
       const games = querySnapshot.docs.map((doc: any) => ({

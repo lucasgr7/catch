@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import useNewGame from '../composables/useNewGame';
 
 const { getGames } = useNewGame();
