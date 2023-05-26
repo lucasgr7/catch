@@ -1,7 +1,15 @@
 <script setup lang="ts">
 import { onBeforeMount } from 'vue';
 import { generateUUID } from './helper';
+import { onMounted } from 'vue';
+import { useScreenOrientation } from '@vueuse/core'
 
+const { lockOrientation } = useScreenOrientation();
+
+
+onMounted(() => {
+  lockOrientation('landscape-primary');
+});
 
 onBeforeMount(() => {
   // check is localStorage have the gameId key stored using useLocalStorage
