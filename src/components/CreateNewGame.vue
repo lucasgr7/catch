@@ -4,21 +4,28 @@ import useNewGame from '../composables/useNewGame';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
-
 const {create } = useNewGame();
 
 const newGameName = ref();
+const numberOfPlayers = ref(3);
+
 async function createNewGame(){
   if(!newGameName.value || newGameName.value === '') return;
 
-  const gameCreated = await create(newGameName.value);
+  const gameCreated = await create(newGameName.value, numberOfPlayers.value);
 
   // re-route the user to the route /game/:gameCrated
   router.push({ name: 'game', params: { id: gameCreated } });
 }
 </script>
 <template>
-  <!-- create a new input and send button using quasar components -->
-  <q-input outlined v-model="newGameName" class="bg-white" label="New Game Name" />
-  <q-btn label="Create" @click="createNewGame" />
+  <q-card class="text-black">
+    <!-- create a new input and send button using quasar components -->
+    <q-input outlined v-model="newGameName" class="bg-white" label="New Game Name" />
+    <!-- Number select to number of players, minimum is 3 -->
+    <q-select outlined v-model="numberOfPlayers"  
+      label="Number of Players" 
+      :options="[3,4,5,6,7,8,9,10]" />
+    <q-btn label="Create" @click="createNewGame" />
+  </q-card>
 </template>

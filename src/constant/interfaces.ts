@@ -36,6 +36,7 @@ export enum StateState {
 
 export enum Playerstate{
   hacked = "hacked",
+  none = 'none'
 }
 
 // enum for the types of the cards
@@ -79,6 +80,8 @@ export interface Game {
   players: Player[];
   states: MapState[];
   name: string;
+  numberOfPlayers: number;
+  assingClassesByOrder: Classes[];
 }
 
 export interface PlayerSessionState {

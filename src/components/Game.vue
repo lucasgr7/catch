@@ -1,13 +1,14 @@
 <script lang="ts" setup>
-import { useRoute } from 'vue-router';
 // import Debug from './Debug.vue';
 import ModalWaitAction from './ModalWaitAction.vue';
 import { useGame } from '../composables/useGame';
 import { onMounted, ref } from 'vue';
 import Debug from './Debug.vue';
 import { useFullscreen } from '@vueuse/core';
+import useMobile from '../composables/useMobile';
+const mobileDetect = useMobile();
 
-const route = useRoute();
+
 const { getGame } = useGame();
 
 // get from path the :id using route
@@ -15,14 +16,13 @@ const gameState = ref();
 const errorState = ref();
 const {isFullscreen, toggle } = useFullscreen();
 
-onMounted(() => {
-})
-
 onMounted(async () => {
-  const gameId = route.params.id as string;
-  localStorage.setItem('gameId', gameId);
   const { game, error} = await getGame();
-  if(!isFullscreen.value) toggle();
+
+  if(!isFullscreen.value && mobileDetect.isMobile.value) {
+    toggle();
+  };
+
   gameState.value = game;
   errorState.value = error;
 })
@@ -33,10 +33,10 @@ onMounted(async () => {
   <ModalWaitAction />
   <Debug />
   <pre>
-    {{ gameState }}
+    game: {{ gameState }}
   </pre>
   <hr/>
   <pre>
-    {{ errorState }}
+    Error: {{ errorState }}
   </pre>
 </template>
