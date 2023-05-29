@@ -1,20 +1,41 @@
 <script lang="ts" setup>
 
-function handleClick(event: any) {
-  const stateColor = event?.currentTarget?.getAttribute("class");
-  const stateName = event.currentTarget.getAttribute("name");
-  if (stateColor !== "terrorist-area") {
-    event?.currentTarget?.setAttribute("class", "terrorist-area");
-    console.log('Estado Selecionado: -', stateName);
-  } else {
-    event?.currentTarget?.removeAttribute("class");
-    console.log('Estado Selecionado: -', stateName);
-  }
-}
+// function handleClick(event: any) {
+//   const stateColor = event?.currentTarget?.getAttribute("class");
+//   const stateName = event.currentTarget.getAttribute("name");
+//   if (stateColor !== "terrorist-area") {
+//     event?.currentTarget?.setAttribute("class", "terrorist-area");
+//     console.log('Estado Selecionado: -', stateName);
+//   } else {
+//     event?.currentTarget?.removeAttribute("class");
+//     console.log('Estado Selecionado: -', stateName);
+//   }
+// }
+
+const circleSize = 10; 
+
+const handleClick = (event: MouseEvent) => {
+  const svg = event.currentTarget as SVGSVGElement;
+
+  const clickX = event.clientX - 220;
+  const clickY = event.clientY;
+
+  const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  circle.setAttribute('cx', clickX.toString());
+  circle.setAttribute('cy', clickY.toString());
+  circle.setAttribute('r', circleSize.toString());
+  circle.setAttribute('fill', 'blue');
+
+  svg.appendChild(circle);
+};
+
+
+
+
 </script>
 
 <template>
-  <div class="usa-map">
+  <div id="usa-map">
     <svg
       width="605"
       height="429"
@@ -3184,7 +3205,7 @@ function handleClick(event: any) {
 </template>
 
 <style lang="scss" scoped>
-.usa-map {
+#usa-map {
   display: fixed;
   margin-left: 45vh;
   .default-area {
