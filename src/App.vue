@@ -29,7 +29,7 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <q-layout>
+  <q-layout class="screen">
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -42,21 +42,17 @@ onBeforeMount(() => {
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-.w-screen {
+.screen {
   background-image: url('/src/assets/backgroundGameScreen.png');
   background-repeat: no-repeat;
   background-size: cover;
   position: absolute;
-  left: -505px;
-  top: -30px;
   height: 150vh;
 }
 
 @media (max-width: 820px) {
-  .w-screen {
+  .screen {
     position: absolute;
-    left: -390px;
-    top: -40px;
     height: 180vh;
     width: 250vh;
   }

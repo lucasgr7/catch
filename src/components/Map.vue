@@ -28,8 +28,8 @@ function handleClick(event: any) {
             xlink:href="#Alasca"
             @click="handleClick"
             class="estado"
-            name="Alasca"
-            code="1"
+            name="Alaska"
+            id="AK"
           >
             <g filter="url(#filter2_i_38_116)">
               <path
@@ -49,7 +49,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Alabama"
-            code="2"
+            id="AL"
           >
             <g filter="url(#filter3_i_38_116)">
               <path
@@ -69,7 +69,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Arkansas"
-            code="3"
+            id="AR"
           >
             <g filter="url(#filter4_i_38_116)">
               <path
@@ -89,7 +89,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Arizona"
-            code="4"
+            id="AZ"
           >
             <g filter="url(#filter5_i_38_116)">
               <path
@@ -109,7 +109,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="California"
-            code="5"
+            id="CA"
           >
             <g filter="url(#filter6_i_38_116)">
               <path
@@ -129,7 +129,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Colorado"
-            code="6"
+            id="CO"
           >
             <g filter="url(#filter7_i_38_116)">
               <path
@@ -149,7 +149,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Connecticut"
-            code="7"
+            id="CT"
           >
             <g filter="url(#filter8_i_38_116)">
               <path
@@ -181,7 +181,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Delaware"
-            code="8"
+            id="DE"
           >
             <g filter="url(#filter10_i_38_116)">
               <path
@@ -197,11 +197,11 @@ function handleClick(event: any) {
           </a>
 
           <a
-            xlink:href="#Flórida"
+            xlink:href="#Florida"
             @click="handleClick"
             class="estado"
-            name="Flórida"
-            code="9"
+            name="Florida"
+            id="FL"
           >
             <g filter="url(#filter11_i_38_116)">
               <path
@@ -221,7 +221,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Georgia"
-            code="10"
+            id="GA"
           >
             <g filter="url(#filter12_i_38_116)">
               <path
@@ -237,11 +237,11 @@ function handleClick(event: any) {
           </a>
 
           <a
-            xlink:href="#Havaí"
+            xlink:href="#Hawaii"
             @click="handleClick"
             class="estado"
-            name="Havaí"
-            code="11"
+            name="Hawaii"
+            id="HI"
           >
             <g filter="url(#filter13_i_38_116)">
               <path
@@ -256,7 +256,7 @@ function handleClick(event: any) {
             />
           </a>
 
-          <a xlink:href="#Iowa" @click="handleClick" class="estado" name="Iowa" code="12">
+          <a xlink:href="#Iowa" @click="handleClick" class="estado" name="Iowa" id="IA">
             <g filter="url(#filter14_i_38_116)">
               <path
                 d="M378.835 113.955L379.005 114.655L380.339 116.643L379.55 117.668L379.726 120.385L380.174 121.518L380.895 123.54L384.066 124.605L385.104 126.525L385.717 127.476L386.886 128.068L387.425 129.435L388.99 130.375L390.051 131.428L389.756 134.931L388.156 137.967L387.566 138.935L385.405 139.812L382.12 140.638L381.371 142.905L382.631 143.844L383.153 145.821L382.001 148.127L381.456 150.121L379.045 152.171L378.966 154.535L377.57 153.527L375.596 151.522L364.89 152.239L353.606 152.661L344.812 152.832L336.001 152.889L335.349 150.548L335.621 148.236L335.406 146.009L334.401 142.278L333.76 140.735L333.062 140.313L332.994 137.323L332.393 135.182L330.651 132.738L330.68 131.668L330.078 129.532L329.658 128.239L329.675 127.054L328.144 125.608L328.921 123.489L329.426 121.416L329.658 120.009L328.461 118.283L328.495 115.123H329.744L340.018 115.134L352.789 114.775L366.507 114.28L378.835 113.955Z"
@@ -275,7 +275,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Idaho"
-            code="13"
+            id="ID"
           >
             <g filter="url(#filter15_i_38_116)">
               <path
@@ -295,7 +295,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Illinois"
-            code="14"
+            id="IL"
           >
             <g filter="url(#filter16_i_38_116)">
               <path
@@ -315,7 +315,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Indiana"
-            code="15"
+            id="IN"
           >
             <g filter="url(#filter17_i_38_116)">
               <path
@@ -335,7 +335,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Kansas"
-            code="16"
+            id="KS"
           >
             <g filter="url(#filter18_i_38_116)">
               <path
@@ -355,7 +355,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Kentucky"
-            code="17"
+            id="KY"
           >
             <g filter="url(#filter19_i_38_116)">
               <path
@@ -371,11 +371,11 @@ function handleClick(event: any) {
           </a>
 
           <a
-            xlink:href="#Luisiana"
+            xlink:href="#Louisiana"
             @click="handleClick"
             class="estado"
-            name="Luisiana"
-            code="18"
+            name="Louisiana"
+            id="LA"
           >
             <g filter="url(#filter20_i_38_116)">
               <path
@@ -395,7 +395,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Massachusetts"
-            code="19"
+            id="MA"
           >
             <g filter="url(#filter21_i_38_116)">
               <path
@@ -415,7 +415,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Maryland"
-            code="20"
+            id="MD"
           >
             <g filter="url(#filter22_i_38_116)">
               <path
@@ -435,7 +435,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Maine"
-            code="21"
+            id="ME"
           >
             <g filter="url(#filter23_i_38_116)">
               <path
@@ -455,7 +455,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Michigan"
-            code="22"
+            id="MI"
           >
             <g filter="url(#filter24_i_38_116)">
               <path
@@ -475,7 +475,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Minnesota"
-            code="23"
+            id="MN"
           >
             <g filter="url(#filter25_i_38_116)">
               <path
@@ -495,7 +495,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Missouri"
-            code="24"
+            id="MO"
           >
             <g filter="url(#filter26_i_38_116)">
               <path
@@ -515,7 +515,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Mississippi"
-            code="25"
+            id="MS"
           >
             <g filter="url(#filter27_i_38_116)">
               <path
@@ -535,7 +535,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Montana"
-            code="26"
+            id="MT"
           >
             <g filter="url(#filter28_i_38_116)">
               <path
@@ -551,11 +551,11 @@ function handleClick(event: any) {
           </a>
 
           <a
-            xlink:href="#Carolina do Norte"
+            xlink:href="#North Carolina"
             @click="handleClick"
             class="estado"
-            name="Carolina do Norte"
-            code="27"
+            name="North Carolina"
+            id="NC"
           >
             <g filter="url(#filter29_i_38_116)">
               <path
@@ -571,11 +571,11 @@ function handleClick(event: any) {
           </a>
 
           <a
-            xlink:href="#Dakota do Norte"
+            xlink:href="#North Dakota"
             @click="handleClick"
             class="estado"
-            name="Dakota do Norte"
-            code="28"
+            name="North Dakota"
+            id="ND"
           >
             <g filter="url(#filter30_i_38_116)">
               <path
@@ -595,7 +595,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Nebraska"
-            code="29"
+            id="NE"
           >
             <g filter="url(#filter31_i_38_116)">
               <path
@@ -611,11 +611,11 @@ function handleClick(event: any) {
           </a>
 
           <a
-            xlink:href="#Nova Hampshire"
+            xlink:href="#New Hampshire"
             @click="handleClick"
             class="estado"
-            name="Nova Hampshire"
-            code="30"
+            name="New Hampshire"
+            id="NH"
           >
             <g filter="url(#filter32_i_38_116)">
               <path
@@ -631,11 +631,11 @@ function handleClick(event: any) {
           </a>
 
           <a
-            xlink:href="#Nova Jersey"
+            xlink:href="#New Jersey"
             @click="handleClick"
             class="estado"
-            name="Nova Jersey"
-            code="31"
+            name="New Jersey"
+            id="NJ"
           >
             <g filter="url(#filter33_i_38_116)">
               <path
@@ -651,11 +651,11 @@ function handleClick(event: any) {
           </a>
 
           <a
-            xlink:href="#Novo México"
+            xlink:href="#New Mexico"
             @click="handleClick"
             class="estado"
-            name="Novo México"
-            code="32"
+            name="New Mexico"
+            id="NM"
           >
             <g filter="url(#filter34_i_38_116)">
               <path
@@ -675,7 +675,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Nevada"
-            code="33"
+            id="NV"
           >
             <g filter="url(#filter35_i_38_116)">
               <path
@@ -691,11 +691,11 @@ function handleClick(event: any) {
           </a>
 
           <a
-            xlink:href="#Nova Iorque"
+            xlink:href="#New York"
             @click="handleClick"
             class="estado"
-            name="Nova Iorque"
-            code="34"
+            name="New York"
+            id="NY"
           >
             <g filter="url(#filter36_i_38_116)">
               <path
@@ -710,7 +710,7 @@ function handleClick(event: any) {
             />
           </a>
 
-          <a xlink:href="#Ohio" @click="handleClick" class="estado" name="Ohio" code="35">
+          <a xlink:href="#Ohio" @click="handleClick" class="estado" name="Ohio" id="OH">
             <g filter="url(#filter37_i_38_116)">
               <path
                 d="M485.069 139.203L483.838 140.068L484.524 141.617L484.57 144.63L484.127 148.116L483.639 151.026L483.696 152.365L481.506 155.719L480.468 156.528L479.197 157.103L477.96 157.012L476.105 159.558L476.065 161.922L475.952 163.214L475.146 163.858L474.8 162.457L473.41 162.354L472.434 165.339L472.707 168.192L471.674 170.163L469.24 170.863L467.192 169.912L466.137 168.238L464.276 168.733L462.233 169.741L460.373 169.252L458.041 169.935L456.362 169.109L454.126 168.488L451.097 165.943L449.179 164.934L445.735 165.065L444.703 156.175L443.239 143.685L441.843 132.072L446.734 131.354L451.091 130.779L454.682 130.164V130.17L460.963 131.975L465.836 131.918L472.502 129.133L477.574 124.679L482.17 122.133L485.069 139.203Z"
@@ -729,7 +729,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Oklahoma"
-            code="36"
+            id="OK"
           >
             <g filter="url(#filter38_i_38_116)">
               <path
@@ -749,7 +749,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Oregon"
-            code="37"
+            id="OR"
           >
             <g filter="url(#filter39_i_38_116)">
               <path
@@ -769,7 +769,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Pensilvânia"
-            code="38"
+            id="PA"
           >
             <g filter="url(#filter40_i_38_116)">
               <path
@@ -789,7 +789,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Rhode Island"
-            code="49"
+            id="RI"
           >
             <g filter="url(#filter41_i_38_116)">
               <path
@@ -805,11 +805,11 @@ function handleClick(event: any) {
           </a>
 
           <a
-            xlink:href="#Carolina do Sul"
+            xlink:href="#South Carolina"
             @click="handleClick"
             class="estado"
-            name="Carolina do Sul"
-            code="39"
+            name="South Carolina"
+            id="SC"
           >
             <g filter="url(#filter42_i_38_116)">
               <path
@@ -825,11 +825,11 @@ function handleClick(event: any) {
           </a>
 
           <a
-            xlink:href="#Dakota do Sul"
+            xlink:href="#South Dakota"
             @click="handleClick"
             class="estado"
-            name="Dakota do Sul"
-            code="40"
+            name="South Dakota"
+            id="SD"
           >
             <g filter="url(#filter43_i_38_116)">
               <path
@@ -849,7 +849,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Tennessee"
-            code="41"
+            id="TN"
           >
             <g filter="url(#filter44_i_38_116)">
               <path
@@ -869,7 +869,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Texas"
-            code="42"
+            id="TX"
           >
             <g filter="url(#filter45_i_38_116)">
               <path
@@ -884,7 +884,7 @@ function handleClick(event: any) {
             />
           </a>
 
-          <a xlink:href="#Utah" @click="handleClick" class="estado" name="Utah" code="43">
+          <a xlink:href="#Utah" @click="handleClick" class="estado" name="Utah" id="UT">
             <g filter="url(#filter46_i_38_116)">
               <path
                 d="M207.108 138.32L199.824 189.493L185.033 187.13L165.494 183.735L149.109 180.779L161.755 117.458L189.986 122.561L187.875 134.971L207.108 138.32Z"
@@ -899,11 +899,11 @@ function handleClick(event: any) {
           </a>
 
           <a
-            xlink:href="#Virgínia"
+            xlink:href="#Virginia"
             @click="handleClick"
             class="estado"
-            name="Virgínia"
-            code="44"
+            name="Virginia"
+            id="VA"
           >
             <g filter="url(#filter47_i_38_116)">
               <path
@@ -923,7 +923,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Vermont"
-            code="45"
+            id="VT"
           >
             <g filter="url(#filter48_i_38_116)">
               <path
@@ -943,7 +943,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Washington"
-            code="46"
+            id="WA"
           >
             <g filter="url(#filter49_i_38_116)">
               <path
@@ -963,7 +963,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Wisconsin"
-            code="47"
+            id="WI"
           >
             <g filter="url(#filter50_i_38_116)">
               <path
@@ -979,11 +979,11 @@ function handleClick(event: any) {
           </a>
 
           <a
-            xlink:href="#Virgínia Ocidental"
+            xlink:href="#West Virginia"
             @click="handleClick"
             class="estado"
-            name="Virgínia Ocidental"
-            code="48"
+            name="West Virginia"
+            id="WV"
           >
             <g filter="url(#filter51_i_38_116)">
               <path
@@ -1003,7 +1003,7 @@ function handleClick(event: any) {
             @click="handleClick"
             class="estado"
             name="Wyoming"
-            code="50"
+            id="WY"
           >
             <g filter="url(#filter52_i_38_116)">
               <path
