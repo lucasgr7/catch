@@ -2,10 +2,13 @@
 
 function handleClick(event: any) {
   const stateColor = event?.currentTarget?.getAttribute("class");
+  const stateName = event.currentTarget.getAttribute("name");
   if (stateColor !== "terrorist-area") {
     event?.currentTarget?.setAttribute("class", "terrorist-area");
+    console.log('Estado Selecionado: -', stateName);
   } else {
     event?.currentTarget?.removeAttribute("class");
+    console.log('Estado Selecionado: -', stateName);
   }
 }
 </script>
@@ -3183,8 +3186,7 @@ function handleClick(event: any) {
 <style lang="scss" scoped>
 .usa-map {
   display: flex;
-  justify-content: left;
-  margin-right: 50px; //teste
+  justify-content: center;
   .default-area {
     fill: rgba(253, 211, 150, 255);
     border: 2px solid #663d2a;
