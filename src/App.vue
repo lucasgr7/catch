@@ -43,7 +43,7 @@ onBeforeMount(() => {
 @import "tailwindcss/utilities";
 
 .w-screen {
-  background-image: url('src/assets/backgroundGameScreen.png');
+  background-image: url('/src/assets/backgroundGameScreen.png');
   background-repeat: no-repeat;
   background-size: cover;
   position: absolute;

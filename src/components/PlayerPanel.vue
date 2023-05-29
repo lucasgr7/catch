@@ -4,9 +4,9 @@ import ClassPanel from "./ClassPanel.vue";
 
 const influence = ref(0.65);
 
-const militar = 'src/assets/icons/profile-militar.png';
-const philosopher = 'src/assets/icons/profile-philosophy.png';
-const scientist = 'src/assets/icons/profile-nasa.png';
+const militar = '/src/assets/icons/profile-militar.png';
+const philosopher = '/src/assets/icons/profile-philosophy.png';
+const scientist = '/src/assets/icons/profile-nasa.png';
 
 function randomize() {
   influence.value = Math.random();

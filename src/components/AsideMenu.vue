@@ -9,17 +9,17 @@ import PlayerPanel from './PlayerPanel.vue';
     <div class="buttons-conteiner">
       <el-row>
         <div class="power-up-button">
-          <img src="src\assets\icons\radar.png" alt="radar" />
+          <img src="/src/assets/icons/radar.png" alt="radar" />
         </div>
       </el-row>
       <el-row>
         <div class="power-up-button">
-          <img src="src\assets\icons\computer.png" alt="computer" />
+          <img src="/src/assets/icons/computer.png" alt="computer" />
         </div>
       </el-row>
       <el-row>
         <div class="power-up-button">
-          <img src="src\assets\icons\satellite.png" alt="satellite" />
+          <img src="/src/assets/icons/satellite.png" alt="satellite" />
         </div>
       </el-row>
     </div>

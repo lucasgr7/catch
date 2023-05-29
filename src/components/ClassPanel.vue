@@ -15,8 +15,8 @@ const props = defineProps({
 <style lang="scss" scoped>
 
 .circle {
-  width: 8vh;
-  height: 8vh;
+  width: 10vh;
+  height: 10vh;
   background: rgba(0, 250, 221, 0.98);
   box-shadow: 2px 2px 5px rgba(81, 163, 158, 0.47);
   mix-blend-mode: normal;
@@ -25,7 +25,7 @@ const props = defineProps({
   justify-content: center;
   align-items: center;
   position: absolute;
-  right: 2vh;
+  right: 1vh;
   top: 4vh;
   img {
     width: 5vh;
