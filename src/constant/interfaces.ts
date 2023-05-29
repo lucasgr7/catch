@@ -58,6 +58,7 @@ export interface Player {
   cards: Card[];
   level: number;
   state?: Playerstate | null;
+  currentState: string;
 }
 
 export interface State {
@@ -81,7 +82,8 @@ export interface Game {
   states: MapState[];
   name: string;
   numberOfPlayers: number;
-  assingClassesByOrder: Classes[];
+  assignClassesByOrder: Classes[];
+  assignStartStates: string[];
 }
 
 export interface PlayerSessionState {
