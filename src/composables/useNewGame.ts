@@ -1,6 +1,10 @@
 import { collection, addDoc, getDocs, doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { Classes, Game, Player, Playerstate } from "../constant/interfaces";
-import { useCollection, useDocument, useFirestore } from "vuefire";
+import { useDocument, useFirestore } from "vuefire";
+import mapUsa from '../constant/usaMap.json';
+import { useLocalStorage } from "@vueuse/core";
+
+const localStorageGameId = useLocalStorage('gameId', '');
 
 export default function useNewGame() {
   const db = useFirestore();
@@ -19,6 +23,15 @@ export default function useNewGame() {
     return randomClasses;
   }
 
+  function createRandomPlacesToStart(numberofPlayers: number, map: string): string[]{
+    switch(map){
+      case 'usa':
+        mapUsa.states.sort(() => Math.random() - 0.5);
+        return mapUsa.states.slice(0, numberofPlayers).map(state => state.id);
+    }
+    throw new Error('Map not found');
+  }
+
   // create a new document and return the id
   async function create(nameGame: string, numberOfPlayers: number) {
     const playerUUID = localStorage.getItem('playerUUID');
@@ -32,17 +45,19 @@ export default function useNewGame() {
       map: 'usa',
       name: nameGame,
       numberOfPlayers: numberOfPlayers,
-      assingClassesByOrder: createRandomClassOrder(numberOfPlayers),
+      assignClassesByOrder: createRandomClassOrder(numberOfPlayers),
+      assignStartStates: createRandomPlacesToStart(numberOfPlayers, 'usa'),
     } as Game;
 
     // add my player
     game.players.push({
       cards: [],
       state: Playerstate.none,
-      class: game.assingClassesByOrder[0],
+      class: game.assignClassesByOrder[0],
       id: playerUUID,
       level: 1,
       name: 'Player 1',
+      currentState: game.assignStartStates[0],
     } as Player);
 
     try {
@@ -82,6 +97,9 @@ export default function useNewGame() {
   async function joinGame(gameId: string, router: any){
     const gameRef = doc(collection(db, 'games'), gameId);
     const game = useDocument(gameRef);
+    localStorageGameId.value = gameId;
+
+    // delete the current localStorage game
     
     // Wait for data to be loaded
     onSnapshot(gameRef, async (doc) => {
@@ -103,17 +121,15 @@ export default function useNewGame() {
         game?.value?.players.push({
           cards: [],
           state: Playerstate.none,
-          class: game.value.assingClassesByOrder[game.value.players.length],
+          class: game.value.assignClassesByOrder[game.value.players.length],
           id: playerUUID,
           level: 1,
           name: `Player ${game.value.players.length + 1}`,
+          currentState: game.value.assignStartStates[game.value.players.length],
         } as Player);
       
         // Save the updated game document
         await updateDoc(gameRef, game.value);
-      
-        localStorage.setItem('gameId', gameId);
-        router.push({ name: 'game', params: { id: gameId } });
       } else {
         // If document doesn't exist, throw an error
         throw new Error('Game not found');

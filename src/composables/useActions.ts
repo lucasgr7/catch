@@ -1,13 +1,13 @@
 import { useGame } from "./useGame";
-import { PlayerSessionState } from "../constant/interfaces";
+import { Player, PlayerSessionState } from "../constant/interfaces";
 import { useLocalStorage } from "@vueuse/core";
 
 // create an localStorage object storing the action
 const localStorageRef = useLocalStorage('action', {} as PlayerSessionState);
+const { game } = useGame();
 
 // create composable
-export default function usePlayerBase() {
-  const {getMyPlayer} = useGame();
+export default function useActions() {
 
   // register a new action by the player to make him wait
   // saves into a localStorage the action name and the start time and the end time
@@ -25,9 +25,8 @@ export default function usePlayerBase() {
   function displayWaitingTime(): void {}
 
   // checks if the user state is hacked by a scientist player
-  function isUserHacked(): boolean {
-    const myPlayer = getMyPlayer();
-    return myPlayer.state === 'hacked';
+  function isUserHacked(player: Player): boolean {
+    return player.state === 'hacked';
   }
 
   // listen if the user is affected by motivation
@@ -38,8 +37,8 @@ export default function usePlayerBase() {
     return new Date(now.getTime() + seconds * 1000);
   }
 
-  function move() {
-    if (isUserHacked()) return;
+  function move(player: Player) {
+    if (isUserHacked(player)) return;
 
     // TODO: validate state position is valid
 

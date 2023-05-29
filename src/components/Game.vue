@@ -2,30 +2,43 @@
 // import Debug from './Debug.vue';
 import ModalWaitAction from './ModalWaitAction.vue';
 import { useGame } from '../composables/useGame';
-import { onMounted, ref } from 'vue';
+import { computed, onMounted } from 'vue';
 import Debug from './Debug.vue';
-import { useFullscreen } from '@vueuse/core';
+import { useFullscreen, useLocalStorage } from '@vueuse/core';
 import useMobile from '../composables/useMobile';
+import { useRoute } from 'vue-router';
+import { Player } from '../constant/interfaces';
 import GameScreen from './GameScreen.vue';
+
+
+const { game, error } = useGame();
 const mobileDetect = useMobile();
-
-
-const { getGame } = useGame();
+const route = useRoute();
+const myPlayerId = useLocalStorage('playerUUID', 'not set');
 
 // get from path the :id using route
-const gameState = ref();
-const errorState = ref();
 const {isFullscreen, toggle } = useFullscreen();
 
+const myPlayer = computed(() => {
+  if(!game.value) return;
+  
+  return game.value.players.find((player: Player) => player.id === myPlayerId.value);
+})
+
 onMounted(async () => {
-  const { game, error} = await getGame();
+  // read :id
+  const id = route.params.id as string;
+  if(!localStorage.getItem('gameId')) {
+    localStorage.setItem('gameId', id);
+  }
+
+
+  // if isn't stored localStorage gameId store it
 
   if(!isFullscreen.value && mobileDetect.isMobile.value) {
     toggle();
   };
 
-  gameState.value = game;
-  errorState.value = error;
 })
 
 
@@ -34,11 +47,15 @@ onMounted(async () => {
   <GameScreen />
   <ModalWaitAction />
   <Debug />
+  <q-card>
+    My Player:
+    {{  myPlayer }}
+  </q-card>
   <pre>
-    game: {{ gameState }}
+    game: {{ game }}
   </pre>
   <hr/>
   <pre>
-    Error: {{ errorState }}
+    Error: {{ error }}
   </pre>
 </template>

@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { ref, watchEffect } from 'vue';
-import usePlayerBase from '../composables/usePlayerEvents';
+import useActions from '../composables/useActions';
 import Timer from './Timer.vue';
 
 const showModal = ref(false);
-const { localStorageRef } = usePlayerBase();
+const { localStorageRef } = useActions();
 const restTime = ref(null as any);
 
 // Create a Vue watchEffect for localStorage "action"

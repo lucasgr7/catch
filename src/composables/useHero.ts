@@ -1,12 +1,12 @@
 import { ref } from "vue";
-import usePlayerBase from "./usePlayerEvents";
+import useActions from "./useActions";
 
 export default function useHero() {
   // state
   const name = ref("Scientist");
 
   // dependencies
-  const { move } = usePlayerBase();
+  const { move } = useActions();
 
   return { name, move };
 }
