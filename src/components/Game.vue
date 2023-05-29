@@ -8,6 +8,7 @@ import { useFullscreen, useLocalStorage } from '@vueuse/core';
 import useMobile from '../composables/useMobile';
 import { useRoute } from 'vue-router';
 import { Player } from '../constant/interfaces';
+import GameScreen from './GameScreen.vue';
 
 
 const { game, error } = useGame();
@@ -43,6 +44,7 @@ onMounted(async () => {
 
 </script>
 <template>
+  <GameScreen />
   <ModalWaitAction />
   <Debug />
   <q-card>
