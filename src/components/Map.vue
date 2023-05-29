@@ -3185,8 +3185,8 @@ function handleClick(event: any) {
 
 <style lang="scss" scoped>
 .usa-map {
-  display: flex;
-  justify-content: center;
+  display: fixed;
+  margin-left: 45vh;
   .default-area {
     fill: rgba(253, 211, 150, 255);
     border: 2px solid #663d2a;

@@ -3,7 +3,6 @@
 import Map from './Map.vue';
 import AsideMenu from './AsideMenu.vue';
 
-
 </script>
 
 <template>

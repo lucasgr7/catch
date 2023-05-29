@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import InfluenceBar from './InfluenceBar.vue';
+import PlayerPanel from './PlayerPanel.vue';
 
 </script>
 
 <template>
   <div class="conteiner">
-    <InfluenceBar />
+    <PlayerPanel />
     <div class="buttons-conteiner">
       <el-row>
         <div class="power-up-button">

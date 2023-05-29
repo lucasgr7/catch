@@ -6,6 +6,7 @@ import { onMounted, ref } from 'vue';
 import Debug from './Debug.vue';
 import { useFullscreen } from '@vueuse/core';
 import useMobile from '../composables/useMobile';
+import GameScreen from './GameScreen.vue';
 const mobileDetect = useMobile();
 
 
@@ -30,6 +31,7 @@ onMounted(async () => {
 
 </script>
 <template>
+  <GameScreen />
   <ModalWaitAction />
   <Debug />
   <pre>
