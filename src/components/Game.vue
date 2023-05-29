@@ -41,6 +41,9 @@ onMounted(async () => {
 
 </script>
 <template>
+  <pre>
+    game: {{ game }}
+  </pre>
   <GameScreen />
   <ModalWaitAction />
   <Debug />
@@ -48,9 +51,6 @@ onMounted(async () => {
     My Player:
     {{  myPlayer }}
   </q-card>
-  <pre>
-    game: {{ game }}
-  </pre>
   <hr/>
   <pre>
     Error: {{ error }}

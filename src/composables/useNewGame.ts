@@ -49,10 +49,11 @@ export default function useNewGame(db: any) {
 
   // Method creates random places from the map and places the special power ups
   // for each one of the three classes for the game
-  function createRandomPlacesToHavePowerUps(map: string){
+  function createCardsPlacement(map: string){
+    const americaMap = useAmericaMap();
     switch(map){
       case 'usa':
-        mapUsa.states.sort(() => Math.random() - 0.5);
+        return americaMap.createCardsPlacement();
         
     }
     throw new Error('Map not found');
@@ -73,6 +74,7 @@ export default function useNewGame(db: any) {
       numberOfPlayers: numberOfPlayers,
       assignClassesByOrder: createRandomClassOrder(numberOfPlayers),
       assignStartStates: createRandomPlacesToStart(numberOfPlayers, 'usa'),
+      assingPowerUps: createCardsPlacement('usa'),
     } as Game;
 
     // add my player

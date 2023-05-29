@@ -1,5 +1,5 @@
 import { _ } from 'lodash';
-import { CardsIdentification, Classes } from '../constant/interfaces';
+import { Classes } from '../constant/interfaces';
 import mapUsa from '../constant/usaMap.json';
 
 export default function useAmericaMap() {

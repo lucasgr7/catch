@@ -84,6 +84,7 @@ export interface Game {
   numberOfPlayers: number;
   assignClassesByOrder: Classes[];
   assignStartStates: string[];
+  assingPowerUps: {type: Classes, id: string}[];
 }
 
 export interface PlayerSessionState {
