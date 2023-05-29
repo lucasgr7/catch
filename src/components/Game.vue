@@ -4,6 +4,8 @@ import { useRoute } from 'vue-router';
 import ModalWaitAction from './ModalWaitAction.vue';
 import { useGame } from '../composables/useGame';
 import { onMounted, ref } from 'vue';
+import Debug from './Debug.vue';
+import { useFullscreen } from '@vueuse/core';
 
 const route = useRoute();
 const { getGame } = useGame();
@@ -11,12 +13,16 @@ const { getGame } = useGame();
 // get from path the :id using route
 const gameState = ref();
 const errorState = ref();
+const {isFullscreen, toggle } = useFullscreen();
+
+onMounted(() => {
+})
 
 onMounted(async () => {
   const gameId = route.params.id as string;
   localStorage.setItem('gameId', gameId);
   const { game, error} = await getGame();
-  debugger;
+  if(!isFullscreen.value) toggle();
   gameState.value = game;
   errorState.value = error;
 })
