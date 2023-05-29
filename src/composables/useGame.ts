@@ -1,7 +1,7 @@
 import { useFirestore, useDocument } from 'vuefire';
 import { doc } from 'firebase/firestore';
 
-export function useGame() {
+export async function useGame() {
   const db = useFirestore();
 
   const playerUUID = localStorage.getItem('playerUUID');

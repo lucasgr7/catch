@@ -2,9 +2,12 @@
 import { ref } from 'vue';
 import useNewGame from '../composables/useNewGame';
 import { useRouter } from 'vue-router';
+import { useFirestore } from 'vuefire';
 
+
+const db = useFirestore();
 const router = useRouter();
-const {create } = useNewGame();
+const {create } = useNewGame(db);
 
 const newGameName = ref();
 const numberOfPlayers = ref(3);

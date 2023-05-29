@@ -2,8 +2,11 @@
 import { onMounted, ref } from 'vue';
 import useNewGame from '../composables/useNewGame';
 import { useRouter } from 'vue-router';
+import { useFirestore } from 'vuefire';
 
-const { getGames, joinGame } = useNewGame();
+
+const db = useFirestore();
+const { getGames, joinGame } = useNewGame(db);
 const router = useRouter();
 
 const games = ref();

@@ -31,11 +31,8 @@ onMounted(async () => {
   if(!localStorage.getItem('gameId')) {
     localStorage.setItem('gameId', id);
   }
-
-
   // if isn't stored localStorage gameId store it
-
-  if(!isFullscreen.value && mobileDetect.isMobile.value) {
+  if(!isFullscreen.value && mobileDetect.isMobile) {
     toggle();
   };
 
