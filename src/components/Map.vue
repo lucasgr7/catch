@@ -12,24 +12,40 @@
 //   }
 // }
 
-const circleSize = 10; 
+//function that draw a circle
+// const circleSize = 10; 
 
-const handleClick = (event: MouseEvent) => {
-  const svg = event.currentTarget as SVGSVGElement;
+// const handleClick = (event: MouseEvent) => {
+//   const svg = event.currentTarget as SVGSVGElement;
 
-  const clickX = event.clientX - 220;
-  const clickY = event.clientY;
+//   const clickX = event.clientX - 220;
+//   const clickY = event.clientY;
 
-  const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-  circle.setAttribute('cx', clickX.toString());
-  circle.setAttribute('cy', clickY.toString());
-  circle.setAttribute('r', circleSize.toString());
-  circle.setAttribute('fill', 'blue');
+//   const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+//   circle.setAttribute('cx', clickX.toString());
+//   circle.setAttribute('cy', clickY.toString());
+//   circle.setAttribute('r', circleSize.toString());
+//   circle.setAttribute('fill', 'blue');
 
-  svg.appendChild(circle);
+//   svg.appendChild(circle);
+// };
+
+const handleClick = () => {
+  const paths = document.querySelectorAll('svg path');
+
+  paths.forEach(path => {
+    const svg = path.closest('path');
+
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('cx', '100');
+    circle.setAttribute('cy', '100');
+    circle.setAttribute('r', '5');
+    circle.setAttribute('fill', 'red');
+
+    svg?.appendChild(circle);
+    console.log('svg', svg);
+  });
 };
-
-
 
 
 </script>
