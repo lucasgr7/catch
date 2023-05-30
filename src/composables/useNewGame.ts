@@ -1,22 +1,37 @@
 import { collection, addDoc, getDocs, doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { Classes, Game, Player, Playerstate } from "../constant/interfaces";
-import { useDocument, useFirestore } from "vuefire";
-import mapUsa from '../constant/usaMap.json';
+import { useDocument } from "vuefire";
 import { useLocalStorage } from "@vueuse/core";
+import _ from 'lodash';
+import useAmericaMap from "./useAmericaMap";
 
 const localStorageGameId = useLocalStorage('gameId', '');
 
-export default function useNewGame() {
-  const db = useFirestore();
+export default function useNewGame(db: any) {
+
+  function shiftAndPushDifference(classes: string[], randomClasses: string[]){
+    _.difference(classes, randomClasses).forEach((missingClass: any) => {
+      randomClasses.shift();
+      randomClasses.push(missingClass);
+    })
+    if(_.difference(classes, randomClasses).length > 0){
+      shiftAndPushDifference(classes, randomClasses);
+    }
+    return randomClasses;
+  }
 
   // create a new array of classes in a random order and add a single Classes.Villain
   function createRandomClassOrder(numberOfPlayers: number): Classes[] {
     const classes = [Classes.Militar, Classes.Philosofer, Classes.Scientist];
-    const randomClasses = [];
+    let randomClasses = [] as any[];
     for (let i = 0; i < numberOfPlayers - 1; i++) {
       const randomIndex = Math.floor(Math.random() * classes.length);
       randomClasses.push(classes[randomIndex]);
     }
+    // should contain all classes
+    randomClasses = shiftAndPushDifference(classes, randomClasses);
+    
+    
     randomClasses.push(Classes.Villain);
     // randomize the array again
     randomClasses.sort(() => Math.random() - 0.5);
@@ -24,10 +39,22 @@ export default function useNewGame() {
   }
 
   function createRandomPlacesToStart(numberofPlayers: number, map: string): string[]{
+    const americaMap = useAmericaMap();
     switch(map){
       case 'usa':
-        mapUsa.states.sort(() => Math.random() - 0.5);
-        return mapUsa.states.slice(0, numberofPlayers).map(state => state.id);
+        return americaMap.createPlayerPlacement(numberofPlayers);
+    }
+    throw new Error('Map not found');
+  }
+
+  // Method creates random places from the map and places the special power ups
+  // for each one of the three classes for the game
+  function createCardsPlacement(map: string){
+    const americaMap = useAmericaMap();
+    switch(map){
+      case 'usa':
+        return americaMap.createCardsPlacement();
+        
     }
     throw new Error('Map not found');
   }
@@ -47,6 +74,7 @@ export default function useNewGame() {
       numberOfPlayers: numberOfPlayers,
       assignClassesByOrder: createRandomClassOrder(numberOfPlayers),
       assignStartStates: createRandomPlacesToStart(numberOfPlayers, 'usa'),
+      assingPowerUps: createCardsPlacement('usa'),
     } as Game;
 
     // add my player
@@ -139,5 +167,5 @@ export default function useNewGame() {
   }
 
 
-  return { create, getGames, joinGame };
+  return { create, getGames, joinGame, createRandomClassOrder };
 }
