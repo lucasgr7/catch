@@ -6,7 +6,7 @@ import AsideMenu from './AsideMenu.vue';
 </script>
 
 <template>
-  <div>
+  <div class="min-w-full">
     <AsideMenu />
     <Map />
   </div>
