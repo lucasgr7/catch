@@ -3222,7 +3222,12 @@ const handleClick = () => {
 
 <style lang="scss" scoped>
 #usa-map {
-  display: fixed;
+  // make the svg fixed and able to zoom in
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
   margin-left: 45vh;
   .default-area {
     fill: rgba(253, 211, 150, 255);

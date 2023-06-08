@@ -1,5 +1,7 @@
 <script lang="ts" setup>
+import { useSettings } from '../composables/useSettings';
 import PlayerPanel from './PlayerPanel.vue';
+const { doFullScreen } = useSettings();
 
 </script>
 
@@ -22,6 +24,11 @@ import PlayerPanel from './PlayerPanel.vue';
           <img src="/src/assets/icons/satellite.png" alt="satellite" />
         </div>
       </el-row>
+    </div>
+    <div class="footer flex bg-center min-w-full">
+      <q-btn @click="doFullScreen">
+        Full screen
+      </q-btn>
     </div>
   </div>
 </template>

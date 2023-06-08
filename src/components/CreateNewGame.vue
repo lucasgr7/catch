@@ -10,7 +10,7 @@ const router = useRouter();
 const {create } = useNewGame(db);
 
 const newGameName = ref();
-const numberOfPlayers = ref(3);
+const numberOfPlayers = ref(6);
 
 async function createNewGame(){
   if(!newGameName.value || newGameName.value === '') return;
@@ -28,7 +28,7 @@ async function createNewGame(){
     <!-- Number select to number of players, minimum is 3 -->
     <q-select outlined v-model="numberOfPlayers"  
       label="Number of Players" 
-      :options="[3,4,5,6,7,8,9,10]" />
+      :options="[5,6,7,8,9,10]" />
     <q-btn label="Create" @click="createNewGame" />
   </q-card>
 </template>

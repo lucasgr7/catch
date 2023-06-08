@@ -37,12 +37,14 @@ export default function useActions() {
     return new Date(now.getTime() + seconds * 1000);
   }
 
-  function move(player: Player) {
+  // should receive a player and a state, validates if his state is valid and then
+  // register the action
+  // then the action should update the database
+  function move(player: Player, state: string) {
     if (isUserHacked(player)) return;
 
     // TODO: validate state position is valid
 
-    // TODO: 
 
     // get the time for the move-event from .env MOVE_TIME
     const moveActionSeconds = import.meta.env.VITE_APP_MOVE_TIME;
@@ -53,8 +55,6 @@ export default function useActions() {
       startTime: new Date(),
       endTime: addSecondsToNow(moveActionSeconds),
     });
-
-
   }
 
   return {

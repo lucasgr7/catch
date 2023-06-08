@@ -2,7 +2,7 @@
 // import Debug from './Debug.vue';
 import ModalWaitAction from './ModalWaitAction.vue';
 import { useGame } from '../composables/useGame';
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import Debug from './Debug.vue';
 import { useFullscreen, useLocalStorage } from '@vueuse/core';
 import useMobile from '../composables/useMobile';
@@ -11,10 +11,11 @@ import { Player } from '../constant/interfaces';
 import GameScreen from './GameScreen.vue';
 
 
-const { game, error } = useGame();
+const { game } = useGame();
 const mobileDetect = useMobile();
 const route = useRoute();
 const myPlayerId = useLocalStorage('playerUUID', 'not set');
+const visible = ref(false);
 
 // get from path the :id using route
 const {isFullscreen, toggle } = useFullscreen();
@@ -41,18 +42,20 @@ onMounted(async () => {
 
 </script>
 <template>
-  <pre>
-    game: {{ game }}
-  </pre>
   <GameScreen />
   <ModalWaitAction />
-  <Debug />
-  <q-card>
-    My Player:
-    {{  myPlayer }}
-  </q-card>
-  <hr/>
-  <pre>
-    Error: {{ error }}
-  </pre>
+  <q-toggle v-model="visible" label="Game details" class="absolute bottom-0" />
+
+  <q-slide-transition>
+    <div v-show="visible">
+    <q-card>
+      My Player:
+      {{  myPlayer }}
+    </q-card>
+    <Debug />
+      <pre>
+        game: {{ game }}
+      </pre>
+    </div>
+  </q-slide-transition>
 </template>
