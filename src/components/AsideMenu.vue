@@ -49,9 +49,9 @@ const { addCircleToState} = useAmericaMap();
   position: absolute;
   left: -5px;
   .buttons-conteiner{
-    margin-top: 10vh;
+    margin-top: 2vh;
     .power-up-button {
-      margin-top: 10vh;
+      margin-top: 2vh;
       margin-left: 8vh;
       width: 20vh;
       height: 20vh;
