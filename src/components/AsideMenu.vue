@@ -1,7 +1,9 @@
 <script lang="ts" setup>
+import useAmericaMap from '../composables/useAmericaMap';
 import { useSettings } from '../composables/useSettings';
 import PlayerPanel from './PlayerPanel.vue';
 const { doFullScreen } = useSettings();
+const { addCircleToState} = useAmericaMap();
 
 </script>
 
@@ -25,9 +27,12 @@ const { doFullScreen } = useSettings();
         </div>
       </el-row>
     </div>
-    <div class="footer flex bg-center min-w-full">
-      <q-btn @click="doFullScreen">
+    <div class="grid mx-2">
+      <q-btn @click="doFullScreen" type="glossy" color="red">
         Full screen
+      </q-btn>
+      <q-btn @click="addCircleToState('NY')" type="glossy" color="red">
+        Add to New York
       </q-btn>
     </div>
   </div>
@@ -40,7 +45,7 @@ const { doFullScreen } = useSettings();
   z-index: 100;
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.26), rgba(0, 0, 0, 0.26)),
     linear-gradient(0deg, #34857e, #34857e);
-  opacity: 0.7;
+  opacity: 0.85;
   position: absolute;
   left: -5px;
   .buttons-conteiner{

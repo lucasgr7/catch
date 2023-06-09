@@ -1,10 +1,12 @@
 <script lang="ts" setup>
 import svgPanZoom from 'svg-pan-zoom';
 import { onMounted, ref } from 'vue';
+import useMobile from '../composables/useMobile';
 
 const svgElement = ref();
 const svgContainer = ref();
 const zoomTool = ref();
+const {isMobile} = useMobile();
 
 
 onMounted(() => {
@@ -12,86 +14,159 @@ onMounted(() => {
     controlIconsEnabled: true,
     zoomEnabled: true,
     panEnabled: true,
-    dblClickZoomEnabled: true,
+    dblClickZoomEnabled: isMobile.value,
     fit: true,
     center: true
   });
   // panZoomInstance.value.center();
 });
 
-// function handleClick(event: any) {
-//   const stateColor = event?.currentTarget?.getAttribute("class");
-//   const stateName = event.currentTarget.getAttribute("name");
-//   if (stateColor !== "terrorist-area") {
-//     event?.currentTarget?.setAttribute("class", "terrorist-area");
-//     console.log('Estado Selecionado: -', stateName);
-//   } else {
-//     event?.currentTarget?.removeAttribute("class");
-//     console.log('Estado Selecionado: -', stateName);
-//   }
+
+// function handleClick(event) {
+//   console.log(event.target);
+
+//   // Find the parent SVG element
+//   const svgParent = event.target.closest("svg");
+
+//   // Find the g element that is displaying the map
+//   const g = svgParent.querySelector("g").querySelector('g');
+
+//   // Get the internal element (in this case, the <path>)
+//   const internalElement = event.target;
+
+//   // Get the bounding rectangle of the internal element
+//   const rect = internalElement.getBoundingClientRect();
+
+//   // Get the current zoom level (if available)
+//   const zoomLevel = zoomTool.value.getZoom();
+
+//   // Get the current pan values
+//   const pan = zoomTool.value.getPan(); // Assuming zoomTool is your svg-pan-zoom instance
+
+//   // Get the bounding rectangle of the SVG element
+//   const svgRect = g.getBoundingClientRect();
+
+//   // Calculate the center coordinates relative to the SVG element, 
+//   // accounting for zoom, position and current pan values
+//   const cx = (rect.left - svgRect.left + rect.width / 2 - pan.x) / zoomLevel;
+//   const cy = (rect.top - svgRect.top + rect.height / 2 - pan.y) / zoomLevel;
+
+//   const radius = 5;
+
+//   // Create a rectangle around the circle
+//   const rectElement = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+//   rectElement.setAttribute("x", cx - radius);
+//   rectElement.setAttribute("y", cy - radius);
+//   rectElement.setAttribute("width", radius * 2);
+//   rectElement.setAttribute("height", radius * 2);
+//   rectElement.setAttribute("fill", "none");
+//   rectElement.setAttribute("stroke", "blue");
+
+//   g.appendChild(rectElement);
+//   debugger;
 // }
 
-// function that draw a circle
-// const circleSize = 10; 
 
-// const handleClick = (event: MouseEvent) => {
-//   const svg = event.currentTarget as SVGSVGElement;
+// function to append directly on the middle of the state
+// function handleClick(event) {
+//   console.log(event.target);
 
-//   const clickX = event.clientX - 220;
-//   const clickY = event.clientY;
+//   // Find the parent SVG element
+//   const svgParent = event.target.closest("svg");
 
-//   const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-//   circle.setAttribute('cx', clickX.toString());
-//   circle.setAttribute('cy', clickY.toString());
-//   circle.setAttribute('r', circleSize.toString());
-//   circle.setAttribute('fill', 'blue');
+//   // Find the g element that is displaying the map
+//   const g = svgParent.querySelector("g").querySelector("g");
 
-//   svg.appendChild(circle);
-// };
+//   // Get the internal element (in this case, the <path>)
+//   const internalElement = event.target;
 
-function handleClick(event: any) {
+//   // Get the bounding box of the clicked path
+//   const bbox = internalElement.getBBox();
+
+//   // Calculate the center of the bounding box
+//   const cx = bbox.x + bbox.width / 2;
+//   const cy = bbox.y + bbox.height / 2;
+
+//   const radius = 5;
+
+//   // Create a rectangle around the circle
+//   const rectElement = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+//   rectElement.setAttribute("x", cx - radius);
+//   rectElement.setAttribute("y", cy - radius);
+//   rectElement.setAttribute("width", radius * 2);
+//   rectElement.setAttribute("height", radius * 2);
+//   rectElement.setAttribute("fill", "none");
+//   rectElement.setAttribute("stroke", "blue");
+
+//   g.appendChild(rectElement);
+// }
+
+
+// Create a Map to keep track of how many circles have been added to each statelet circleCountPerState = new Map();
+let circleCountPerState = new Map();
+
+function handleClick(event) {
   console.log(event.target);
 
   // Find the parent SVG element
-  const svgElement = event.target.closest("g");
+  const svgParent = event.target.closest("svg");
 
-  // Find the internal element (in this case, the <path>)
+  // Find the g element that is displaying the map
+  const g = svgParent.querySelector("g").querySelector("g");
+
+  // Get the internal element (in this case, the <path>)
   const internalElement = event.target;
 
-  // Get the bounding rectangle of the internal element
-  const rect = internalElement.getBoundingClientRect();
+  // Get the bounding box of the clicked path
+  const bbox = internalElement.getBBox();
 
-  // Get the current zoom level (if available)
-  const zoomLevel = zoomTool.value.getZoom(); // Implementação específica da biblioteca de zoom
+  // Calculate the center of the bounding box
+  let cx = bbox.x + bbox.width / 2;
+  let cy = bbox.y + bbox.height / 2;
 
-  // Get the bounding rectangle of the SVG element
-  const svgRect = svgElement.getBoundingClientRect();
+  // Calculate the radius of the circle based on the size of the state (10% of the smallest dimension)
+  let radius = Math.min(Math.min(bbox.width, bbox.height) * 0.1, 5);
+  let circleDiameter = radius * 2;
+  
+  // Get the id of the state (assumes each state path has an id)
+  let stateId = internalElement.parentElement.parentElement.id;
 
-  // Calculate the center coordinates relative to the SVG element, accounting for zoom and position
-  const cx = (rect.left - svgRect.left + rect.width / 2) / zoomLevel;
-  const cy = (rect.top - svgRect.top + rect.height / 2) / zoomLevel;
+  // Check if we have already added a circle to this state
+  if (circleCountPerState.has(stateId)) {
+    let circleCount = circleCountPerState.get(stateId);
 
+    // Calculate the grid position (row and column) based on the circleCount
+    let row = Math.floor(circleCount / 3);
+    let col = circleCount % 3;
+    
+    // Update the position of the new circle to place it in the 3x3 grid
+    cx += (col - 1) * circleDiameter; // -1, 0, 1 for column
+    cy += (row - 1) * circleDiameter; // -1, 0, 1 for row
 
-  const radius = 5;
+    // Update the circle count for this state
+    circleCountPerState.set(stateId, circleCount + 1);
+  } else {
+    circleCountPerState.set(stateId, 1);
+  }
 
-  // Validation: Create a rectangle around the circle
-  const rectElement = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-  rectElement.setAttribute("x", cx);
-  rectElement.setAttribute("y", cy);
-  rectElement.setAttribute("width", radius * 2);
-  rectElement.setAttribute("height", radius * 2);
-  rectElement.setAttribute("fill", "none");
-  rectElement.setAttribute("stroke", "blue");
-  rectElement.style.zIndex = "1000";
-  svgElement.appendChild(rectElement);
+  // Create a circle
+  const circleElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+  circleElement.setAttribute("cx", cx);
+  circleElement.setAttribute("cy", cy);
+  circleElement.setAttribute("r", radius);
+  circleElement.setAttribute("fill", "none");
+  circleElement.setAttribute("stroke", "blue");
+
+  g.appendChild(circleElement);
 }
 
 
 </script>
 
 <template>
+  <q-btn @click="addCircleToState('AK')" label="Add Circle to Alaska" />
+
   <div id="usa-map" ref="svgContainer">
-  
     <svg
       ref="svgElement"
       width=100%
