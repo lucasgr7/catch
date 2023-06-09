@@ -1,4 +1,23 @@
 <script lang="ts" setup>
+import svgPanZoom from 'svg-pan-zoom';
+import { onMounted, ref } from 'vue';
+
+const svgElement = ref();
+const svgContainer = ref();
+const zoomTool = ref();
+
+
+onMounted(() => {
+  zoomTool.value = svgPanZoom(svgElement.value ?? '#usa-map', {
+    controlIconsEnabled: true,
+    zoomEnabled: true,
+    panEnabled: true,
+    dblClickZoomEnabled: true,
+    fit: true,
+    center: true
+  });
+  // panZoomInstance.value.center();
+});
 
 // function handleClick(event: any) {
 //   const stateColor = event?.currentTarget?.getAttribute("class");
@@ -12,7 +31,7 @@
 //   }
 // }
 
-//function that draw a circle
+// function that draw a circle
 // const circleSize = 10; 
 
 // const handleClick = (event: MouseEvent) => {
@@ -30,40 +49,62 @@
 //   svg.appendChild(circle);
 // };
 
-const handleClick = () => {
-  const paths = document.querySelectorAll('svg path');
+function handleClick(event: any) {
+  console.log(event.target);
 
-  paths.forEach(path => {
-    const svg = path.closest('path');
+  // Find the parent SVG element
+  const svgElement = event.target.closest("g");
 
-    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    circle.setAttribute('cx', '100');
-    circle.setAttribute('cy', '100');
-    circle.setAttribute('r', '5');
-    circle.setAttribute('fill', 'red');
+  // Find the internal element (in this case, the <path>)
+  const internalElement = event.target;
 
-    svg?.appendChild(circle);
-    console.log('svg', svg);
-  });
-};
+  // Get the bounding rectangle of the internal element
+  const rect = internalElement.getBoundingClientRect();
+
+  // Get the current zoom level (if available)
+  const zoomLevel = zoomTool.value.getZoom(); // Implementação específica da biblioteca de zoom
+
+  // Get the bounding rectangle of the SVG element
+  const svgRect = svgElement.getBoundingClientRect();
+
+  // Calculate the center coordinates relative to the SVG element, accounting for zoom and position
+  const cx = (rect.left - svgRect.left + rect.width / 2) / zoomLevel;
+  const cy = (rect.top - svgRect.top + rect.height / 2) / zoomLevel;
+
+
+  const radius = 5;
+
+  // Validation: Create a rectangle around the circle
+  const rectElement = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+  rectElement.setAttribute("x", cx);
+  rectElement.setAttribute("y", cy);
+  rectElement.setAttribute("width", radius * 2);
+  rectElement.setAttribute("height", radius * 2);
+  rectElement.setAttribute("fill", "none");
+  rectElement.setAttribute("stroke", "blue");
+  rectElement.style.zIndex = "1000";
+  svgElement.appendChild(rectElement);
+}
 
 
 </script>
 
 <template>
-  <div id="usa-map">
+  <div id="usa-map" ref="svgContainer">
+  
     <svg
-      width="605"
-      height="429"
+      ref="svgElement"
+      width=100%
+      height=100%
       viewBox="0 0 605 429"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-    >
+    ><path d="M182.05654907226562,177.7530975341797 m-50,0 a50,50 0 1,0 100,0 a50,50 0 1,0 -100,0" fill="red"></path>
       <g filter="url(#filter0_d_38_116)">
         <g filter="url(#filter1_d_38_116)">
           <a
             xlink:href="#Alasca"
-            @click="handleClick"
+            @mousedown="handleClick($event)"
             class="estado"
             name="Alaska"
             id="AK"
@@ -72,6 +113,7 @@ const handleClick = () => {
               <path
                 d="M85.5563 271.518L87.1846 276.319L88.8979 274.634L94.2593 275.978L93.777 278.216L98.571 280.488L102.015 279.862L108.67 283.581L114.99 284.931L117.492 286.338L121.991 284.925L126.989 287.995L130.631 289.396L130.467 324.662L130.234 375.83L134.489 376.08L138.744 378.444L141.876 382.191L145.972 387.761L150.079 382.749L154.334 379.714L156.927 384.059L160.144 387.397L164.524 390.968L167.86 396.868L173.459 406.118L181.986 410.623L182.735 415.897L180.534 420.237L177.561 417.377L173.096 415.122L171.077 407.9L164.518 401.556L161.46 393.679L157.086 393.417L149.898 393.588L144.531 391.31L135.17 382.516L130.966 380.881L123.381 377.681L117.344 378.25L109.033 373.836L104.188 369.775L99.3142 371.256L99.7057 377.384L97.2605 377.737L92.058 379.07L87.9051 381.576L82.8274 382.835V377.681L85.7889 369.411L90.5943 367.235L89.6752 364.911L83.7182 369.143L80.0588 374.542L72.9445 379.782L75.5599 384.407L70.4709 389.92L65.0868 392.705L60.134 394.51L58.3582 398.036L50.4099 401.02L48.1859 404.637L42.019 407.057L38.961 405.73L34.0989 407.046L28.6979 408.709L24.1252 410.469L15.4506 410.663L15.0875 409.102L21.2091 406.682L26.4002 405.332L32.4196 402.051L38.354 402.438L41.3665 399.545L48.7249 395.889L50.0695 394.419L53.9727 392.107L55.9471 385.859L59.1128 381.269L53.5643 382.88L52.4352 381.143L49.434 383.735L47.4654 378.848L45.6386 381.622L44.9237 377.06L39.8177 379.446L37.1455 378.808L37.9682 373.711L39.483 370.8L37.4746 367.121L31.5686 367.343L29.0723 362.44L26.7803 359.632L28.0909 354.836L25.9804 350.331L28.9305 345.883L33.4976 341.999L36.096 337.944L39.4262 338.149L41.758 340.233L45.9506 336.805L48.6057 338.24L52.197 336.195L52.3899 331.998L50.6141 329.907L54.2167 327.128L51.8679 326.695L47.3916 327.663L45.752 329.327L43.2501 326.621L37.6448 326.183L32.7373 322.515L32.2154 318.522L29.1404 311.995L35.3357 309.837L44.5606 307.724L47.5051 308.504L45.8485 312.873L53.6153 314.439L52.0268 308.117L48.5263 303.543L47.2385 298.326L44.9975 293.514L41.1623 289.271L44.4415 284.994L50.4382 286.343L55.7371 283.177L57.6718 278.774L62.0856 275.055L65.4726 274.691L72.4565 271.706L75.2535 272.948L81.1027 268.631L85.5563 271.518ZM10.3673 323.865L12.1203 326.308L14.7755 326.245L17.0902 329.537L20.5169 331.918L19.9042 332.749L16.4037 333.604L14.0947 330.773L13.1642 328.734L9.64109 328.056L9 326.986L10.3673 323.865ZM24.4259 364.382L21.4814 364.946L19.1894 362.576L17.3455 359.546L21.8615 359.336L24.9365 361.044L24.4259 364.382ZM74.7713 399.454L69.7276 402.011L67.7079 399.483L67.6115 395.422L72.1729 393.035L74.7599 392.084L77.6704 393.064L79.2476 395.951L74.7713 399.454Z"
                 fill="url(#paint2_linear_38_116)"
+                
               />
             </g>
             <path
@@ -79,11 +121,12 @@ const handleClick = () => {
               stroke="#663D2A"
               stroke-width="2"
             />
+              
           </a>
 
           <a
             xlink:href="#Alabama"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Alabama"
             id="AL"
@@ -103,7 +146,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Arkansas"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Arkansas"
             id="AR"
@@ -123,7 +166,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Arizona"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Arizona"
             id="AZ"
@@ -143,7 +186,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#California"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="California"
             id="CA"
@@ -163,7 +206,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Colorado"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Colorado"
             id="CO"
@@ -183,7 +226,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Connecticut"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Connecticut"
             id="CT"
@@ -215,7 +258,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Delaware"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Delaware"
             id="DE"
@@ -235,7 +278,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Florida"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Florida"
             id="FL"
@@ -255,7 +298,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Georgia"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Georgia"
             id="GA"
@@ -275,7 +318,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Hawaii"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Hawaii"
             id="HI"
@@ -293,7 +336,7 @@ const handleClick = () => {
             />
           </a>
 
-          <a xlink:href="#Iowa" @click="handleClick" class="estado" name="Iowa" id="IA">
+          <a xlink:href="#Iowa" @mousedown="handleClick" class="estado" name="Iowa" id="IA">
             <g filter="url(#filter14_i_38_116)">
               <path
                 d="M378.835 113.955L379.005 114.655L380.339 116.643L379.55 117.668L379.726 120.385L380.174 121.518L380.895 123.54L384.066 124.605L385.104 126.525L385.717 127.476L386.886 128.068L387.425 129.435L388.99 130.375L390.051 131.428L389.756 134.931L388.156 137.967L387.566 138.935L385.405 139.812L382.12 140.638L381.371 142.905L382.631 143.844L383.153 145.821L382.001 148.127L381.456 150.121L379.045 152.171L378.966 154.535L377.57 153.527L375.596 151.522L364.89 152.239L353.606 152.661L344.812 152.832L336.001 152.889L335.349 150.548L335.621 148.236L335.406 146.009L334.401 142.278L333.76 140.735L333.062 140.313L332.994 137.323L332.393 135.182L330.651 132.738L330.68 131.668L330.078 129.532L329.658 128.239L329.675 127.054L328.144 125.608L328.921 123.489L329.426 121.416L329.658 120.009L328.461 118.283L328.495 115.123H329.744L340.018 115.134L352.789 114.775L366.507 114.28L378.835 113.955Z"
@@ -309,7 +352,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Idaho"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Idaho"
             id="ID"
@@ -329,7 +372,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Illinois"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Illinois"
             id="IL"
@@ -349,7 +392,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Indiana"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Indiana"
             id="IN"
@@ -369,7 +412,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Kansas"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Kansas"
             id="KS"
@@ -389,7 +432,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Kentucky"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Kentucky"
             id="KY"
@@ -409,7 +452,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Louisiana"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Louisiana"
             id="LA"
@@ -429,7 +472,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Massachusetts"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Massachusetts"
             id="MA"
@@ -449,7 +492,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Maryland"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Maryland"
             id="MD"
@@ -469,7 +512,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Maine"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Maine"
             id="ME"
@@ -489,7 +532,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Michigan"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Michigan"
             id="MI"
@@ -509,7 +552,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Minnesota"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Minnesota"
             id="MN"
@@ -529,7 +572,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Missouri"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Missouri"
             id="MO"
@@ -549,7 +592,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Mississippi"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Mississippi"
             id="MS"
@@ -569,7 +612,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Montana"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Montana"
             id="MT"
@@ -589,7 +632,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#North Carolina"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="North Carolina"
             id="NC"
@@ -609,7 +652,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#North Dakota"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="North Dakota"
             id="ND"
@@ -629,7 +672,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Nebraska"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Nebraska"
             id="NE"
@@ -649,7 +692,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#New Hampshire"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="New Hampshire"
             id="NH"
@@ -669,7 +712,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#New Jersey"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="New Jersey"
             id="NJ"
@@ -689,7 +732,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#New Mexico"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="New Mexico"
             id="NM"
@@ -709,7 +752,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Nevada"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Nevada"
             id="NV"
@@ -729,7 +772,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#New York"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="New York"
             id="NY"
@@ -747,7 +790,7 @@ const handleClick = () => {
             />
           </a>
 
-          <a xlink:href="#Ohio" @click="handleClick" class="estado" name="Ohio" id="OH">
+          <a xlink:href="#Ohio" @mousedown="handleClick" class="estado" name="Ohio" id="OH">
             <g filter="url(#filter37_i_38_116)">
               <path
                 d="M485.069 139.203L483.838 140.068L484.524 141.617L484.57 144.63L484.127 148.116L483.639 151.026L483.696 152.365L481.506 155.719L480.468 156.528L479.197 157.103L477.96 157.012L476.105 159.558L476.065 161.922L475.952 163.214L475.146 163.858L474.8 162.457L473.41 162.354L472.434 165.339L472.707 168.192L471.674 170.163L469.24 170.863L467.192 169.912L466.137 168.238L464.276 168.733L462.233 169.741L460.373 169.252L458.041 169.935L456.362 169.109L454.126 168.488L451.097 165.943L449.179 164.934L445.735 165.065L444.703 156.175L443.239 143.685L441.843 132.072L446.734 131.354L451.091 130.779L454.682 130.164V130.17L460.963 131.975L465.836 131.918L472.502 129.133L477.574 124.679L482.17 122.133L485.069 139.203Z"
@@ -763,7 +806,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Oklahoma"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Oklahoma"
             id="OK"
@@ -783,7 +826,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Oregon"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Oregon"
             id="OR"
@@ -803,7 +846,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Pensilvânia"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Pensilvânia"
             id="PA"
@@ -823,7 +866,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Rhode Island"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Rhode Island"
             id="RI"
@@ -843,7 +886,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#South Carolina"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="South Carolina"
             id="SC"
@@ -863,7 +906,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#South Dakota"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="South Dakota"
             id="SD"
@@ -883,7 +926,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Tennessee"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Tennessee"
             id="TN"
@@ -903,7 +946,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Texas"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Texas"
             id="TX"
@@ -921,7 +964,7 @@ const handleClick = () => {
             />
           </a>
 
-          <a xlink:href="#Utah" @click="handleClick" class="estado" name="Utah" id="UT">
+          <a xlink:href="#Utah" @mousedown="handleClick" class="estado" name="Utah" id="UT">
             <g filter="url(#filter46_i_38_116)">
               <path
                 d="M207.108 138.32L199.824 189.493L185.033 187.13L165.494 183.735L149.109 180.779L161.755 117.458L189.986 122.561L187.875 134.971L207.108 138.32Z"
@@ -937,7 +980,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Virginia"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Virginia"
             id="VA"
@@ -957,7 +1000,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Vermont"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Vermont"
             id="VT"
@@ -977,7 +1020,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Washington"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Washington"
             id="WA"
@@ -997,7 +1040,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Wisconsin"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Wisconsin"
             id="WI"
@@ -1017,7 +1060,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#West Virginia"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="West Virginia"
             id="WV"
@@ -1037,7 +1080,7 @@ const handleClick = () => {
 
           <a
             xlink:href="#Wyoming"
-            @click="handleClick"
+            @mousedown="handleClick"
             class="estado"
             name="Wyoming"
             id="WY"
@@ -3228,7 +3271,7 @@ const handleClick = () => {
   position: absolute;
   top: 0;
   left: 0;
-  margin-left: 45vh;
+  z-index: 1;
   .default-area {
     fill: rgba(253, 211, 150, 255);
     border: 2px solid #663d2a;

@@ -37,8 +37,10 @@ const { doFullScreen } = useSettings();
 .conteiner {
   width: 35vh;
   height: 150vh;
+  z-index: 100;
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.26), rgba(0, 0, 0, 0.26)),
     linear-gradient(0deg, #34857e, #34857e);
+  opacity: 0.7;
   position: absolute;
   left: -5px;
   .buttons-conteiner{
