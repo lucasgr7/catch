@@ -38,30 +38,27 @@ const { addCircleToState } = useAmericaMap();
     linear-gradient(0deg, #34857e, #34857e);
   opacity: 0.85;
   position: absolute;
-  left: -11px;
-  border-right: 3px solid black;
-
-  .power-up-button {
-    margin-top: 4vh;
-    margin-left: 2vh;
-    width: 20vh;
-    height: 20vh;
-    background: radial-gradient(
-        63.02% 63.02% at 41.15% 38.02%,
-        rgba(0, 0, 0, 0) 19.27%,
-        rgba(0, 0, 0, 0.2) 100%
-      ),
-      radial-gradient(46.88% 46.88% at 52.08% 46.88%, #d7e0ab 0%, #7a8822 100%);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 13px solid #e8efd6;
-    box-shadow: 2px 2px 5px rgba(81, 163, 158, 0.47);
-    cursor: pointer;
-    img {
-      width: 10vh;
-      height: 10vh;
+  left: -5px;
+  .buttons-conteiner{
+    margin-top: 2vh;
+    .power-up-button {
+      margin-top: 2vh;
+      margin-left: 8vh;
+      width: 20vh;
+      height: 20vh;
+      background: radial-gradient(
+          63.02% 63.02% at 41.15% 38.02%,
+          rgba(0, 0, 0, 0) 19.27%,
+          rgba(0, 0, 0, 0.2) 100%
+        ),
+        radial-gradient(46.88% 46.88% at 52.08% 46.88%, #9cae45 0%, #7a8822 100%);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 3px solid #e8efd6;
+      box-shadow: 2px 2px 5px rgba(81, 163, 158, 0.47);
+      cursor: pointer;
     }
   }
 }

@@ -1,8 +1,14 @@
 import { _ } from "lodash";
 import { Classes } from "../constant/interfaces";
 import mapUsa from "../constant/usaMap.json";
+import { Ref, ref } from "vue";
+import svgPanZoom from "svg-pan-zoom";
 
-export default function useAmericaMap() {
+const zoomTool = ref();
+const zoomValue = ref(0);
+
+export default function useAmericaMap(svgContainer?: Ref<HTMLElement | null>) {
+    
   function createPlayerPlacement(numberOfPlayers: number) {
     mapUsa.states.sort(() => Math.random() - 0.5);
     return mapUsa.states.slice(0, numberOfPlayers).map((state) => state.id);
@@ -36,7 +42,7 @@ export default function useAmericaMap() {
     }
 
     // Find the g element that is displaying the map
-    const g = svgParent.querySelector("g").querySelector("g");
+    const g = svgParent?.querySelector("g").querySelector("g");
 
     // Get the internal element (in this case, the <path>) by stateId
     const internalElement = document.querySelector(`#${stateId} path`);
@@ -92,5 +98,24 @@ export default function useAmericaMap() {
     g.appendChild(circleElement);
   }
 
-  return { createPlayerPlacement, createCardsPlacement, addCircleToState };
+  function changeZoom(newValue: number){
+    if(zoomTool.value){
+      zoomTool.value.zoom(newValue/ 10);
+    }
+  }
+
+  if(svgContainer){
+    zoomTool.value = svgPanZoom(svgContainer.value ?? '#usa-map', {
+      controlIconsEnabled: false,
+      zoomEnabled: true,
+      panEnabled: true,
+      dblClickZoomEnabled: false,
+      fit: true,
+      center: true
+    });
+    zoomValue.value = zoomTool.value.getZoom() * 10;
+  }
+    // panZoomInstance.value.center();
+
+  return { createPlayerPlacement, createCardsPlacement, addCircleToState, zoomTool, changeZoom, zoomValue };
 }
