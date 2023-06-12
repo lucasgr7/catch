@@ -1,36 +1,27 @@
 <script lang="ts" setup>
-import useAmericaMap from '../composables/useAmericaMap';
-import { useSettings } from '../composables/useSettings';
-import PlayerPanel from './PlayerPanel.vue';
+import useAmericaMap from "../composables/useAmericaMap";
+import { useSettings } from "../composables/useSettings";
+import PlayerPanel from "./PlayerPanel.vue";
 const { doFullScreen } = useSettings();
-const { addCircleToState} = useAmericaMap();
-
+const { addCircleToState } = useAmericaMap();
 </script>
 
 <template>
   <div class="conteiner">
     <PlayerPanel />
-    <div class="buttons-conteiner">
-      <el-row>
-        <div class="power-up-button">
-          <img src="/src/assets/icons/radar.png" alt="radar" />
-        </div>
-      </el-row>
-      <el-row>
-        <div class="power-up-button">
-          <img src="/src/assets/icons/computer.png" alt="computer" />
-        </div>
-      </el-row>
-      <el-row>
-        <div class="power-up-button">
-          <img src="/src/assets/icons/satellite.png" alt="satellite" />
-        </div>
-      </el-row>
-    </div>
+    <q-container class="grid mx-10">
+      <div class="power-up-button">
+        <img src="/src/assets/icons/radar.png" alt="radar" />
+      </div>
+      <div class="power-up-button">
+        <img src="/src/assets/icons/computer.png" alt="computer" />
+      </div>
+      <div class="power-up-button">
+        <img src="/src/assets/icons/satellite.png" alt="satellite" />
+      </div>
+    </q-container>
     <div class="grid mx-2">
-      <q-btn @click="doFullScreen" type="glossy" color="red">
-        Full screen
-      </q-btn>
+      <q-btn @click="doFullScreen" type="glossy" color="red"> Full screen </q-btn>
       <q-btn @click="addCircleToState('NY')" type="glossy" color="red">
         Add to New York
       </q-btn>
@@ -47,39 +38,49 @@ const { addCircleToState} = useAmericaMap();
     linear-gradient(0deg, #34857e, #34857e);
   opacity: 0.85;
   position: absolute;
-  left: -5px;
-  .buttons-conteiner{
-    margin-top: 10vh;
-    .power-up-button {
-      margin-top: 10vh;
-      margin-left: 8vh;
-      width: 20vh;
-      height: 20vh;
-      background: radial-gradient(
-          63.02% 63.02% at 41.15% 38.02%,
-          rgba(0, 0, 0, 0) 19.27%,
-          rgba(0, 0, 0, 0.2) 100%
-        ),
-        radial-gradient(46.88% 46.88% at 52.08% 46.88%, #9cae45 0%, #7a8822 100%);
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border: 3px solid #e8efd6;
-      box-shadow: 2px 2px 5px rgba(81, 163, 158, 0.47);
-      cursor: pointer;
+  left: -11px;
+  border-right: 3px solid black;
+
+  .power-up-button {
+    margin-top: 4vh;
+    margin-left: 2vh;
+    width: 20vh;
+    height: 20vh;
+    background: radial-gradient(
+        63.02% 63.02% at 41.15% 38.02%,
+        rgba(0, 0, 0, 0) 19.27%,
+        rgba(0, 0, 0, 0.2) 100%
+      ),
+      radial-gradient(46.88% 46.88% at 52.08% 46.88%, #d7e0ab 0%, #7a8822 100%);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 13px solid #e8efd6;
+    box-shadow: 2px 2px 5px rgba(81, 163, 158, 0.47);
+    cursor: pointer;
+    img {
+      width: 10vh;
+      height: 10vh;
     }
   }
-
 }
 
-@media screen and (max-width: 820px) {
+@media screen and (max-width: 900px) {
   .conteiner {
+    width: 8vw;
     height: 180vh;
-    .buttons-conteiner{
-        .power-up-button {
-          margin-left: 10vh;
-        }
+    span {
+      font-size: 8px;
+      margin-left: 5vh;
+    }
+    .power-up-button {
+      width: 8vh;
+      height: 8vh;
+      img {
+        width: 5vh;
+        height: 5vh;
+      }
     }
   }
 }

@@ -14,8 +14,8 @@ function randomize() {
 </script>
 
 <template>
-  <el-row>
     <div class="container">
+  <q-row>
       <div class="q-pa-md q-gutter-md">
       <span>Influência</span>
         <q-linear-progress
@@ -25,9 +25,11 @@ function randomize() {
           @click="randomize"
         />
       </div>
+  </q-row>
     </div>
-     <ClassPanel :type-class="philosopher"/>
-  </el-row>
+  <q-row>
+     <ClassPanel :type-class="militar"/>
+  </q-row>
 </template>
 
 <style lang="scss" scoped>
@@ -39,10 +41,9 @@ function randomize() {
     display: flex;
     justify-content: left;
     margin: 5vh 0 0 4vh;
-    font-family: 'K2D';
     font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
+    font-weight: 600;
+    font-size: 18px;
     line-height: 16px;
   }
 }
