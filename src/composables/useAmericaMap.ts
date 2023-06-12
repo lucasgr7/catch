@@ -3,6 +3,7 @@ import { Classes } from "../constant/interfaces";
 import mapUsa from "../constant/usaMap.json";
 import { Ref, ref } from "vue";
 import svgPanZoom from "svg-pan-zoom";
+import SvgElementBuilder from "../helper/svgElementBuilder";
 
 const zoomTool = ref();
 const zoomValue = ref(0);
@@ -33,7 +34,7 @@ export default function useAmericaMap(svgContainer?: Ref<HTMLElement | null>) {
   }
   let circleCountPerState = new Map();
 
-  function addCircleToState(stateId: string) {
+  function addElementToState(stateId: string, shape: SvgElementBuilder) {
     // Find the SVG element
     const svgParent = document.querySelector("svg");
 
@@ -42,7 +43,7 @@ export default function useAmericaMap(svgContainer?: Ref<HTMLElement | null>) {
     }
 
     // Find the g element that is displaying the map
-    const g = svgParent?.querySelector("g").querySelector("g");
+    const g = svgParent?.querySelector("g")?.querySelector("g");
 
     // Get the internal element (in this case, the <path>) by stateId
     const internalElement = document.querySelector(`#${stateId} path`);
@@ -84,18 +85,32 @@ export default function useAmericaMap(svgContainer?: Ref<HTMLElement | null>) {
       circleCountPerState.set(stateId, 1);
     }
 
-    // Create a circle
-    const circleElement = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "circle"
-    );
-    circleElement.setAttribute("cx", cx);
-    circleElement.setAttribute("cy", cy);
-    circleElement.setAttribute("r", radius.toString());
-    circleElement.setAttribute("fill", "none");
-    circleElement.setAttribute("stroke", "blue");
+    g.appendChild(shape
+      .addRadius(radius.toString())
+      .addPositionX(cx)
+      .addPositionY(cy)
+      .build());
+  }
 
-    g.appendChild(circleElement);
+  function addPlayerToState(stateId: string, playerCollor: string) {
+    deleteAllElements();
+
+    addElementToState(stateId, 
+    new SvgElementBuilder()
+    .addFill(playerCollor)
+    .addStroke('2px solid blue')
+    .setType('rect')) 
+  }
+
+  function deleteAllElements() {
+    const svgParent = document.querySelector("svg");
+    // delete all elements rect
+    const g = svgParent?.querySelector("g")?.querySelector("g");
+    const elements = g?.querySelectorAll("rect");
+    elements?.forEach((element) => {
+      element.remove();
+    }
+    );
   }
 
   function changeZoom(newValue: number){
@@ -117,5 +132,10 @@ export default function useAmericaMap(svgContainer?: Ref<HTMLElement | null>) {
   }
     // panZoomInstance.value.center();
 
-  return { createPlayerPlacement, createCardsPlacement, addCircleToState, zoomTool, changeZoom, zoomValue };
+  return { createPlayerPlacement, 
+    createCardsPlacement, 
+    addPlayerToState,
+    zoomTool, 
+    changeZoom,
+    zoomValue };
 }

@@ -19,7 +19,7 @@ function deleteAllCollectioOfGames(){
 
 </script>
 <template>
-  <q-card class="w-max text-black">
+  <q-card class="fixed left-0 text-black !z-[9999]">
     <!-- q-card header -->
     <q-card-section class="bg-slate-100 row text-black">
       Debug Panel

@@ -69,15 +69,12 @@ function handleClick(event: any) {
 
   g.appendChild(circleElement);
 }
-
-
 </script>
 
 <template>
   <div id="usa-map" ref="svgContainer">
     <svg ref="svgElement" width=100% height=100% viewBox="0 0 605 429" fill="none" xmlns="http://www.w3.org/2000/svg"
       style="z-index: 49">
-      <path d="M182.05654907226562,177.7530975341797 m-50,0 a50,50 0 1,0 100,0 a50,50 0 1,0 -100,0" fill="red"></path>
       <g filter="url(#filter0_d_38_116)">
         <g filter="url(#filter1_d_38_116)">
           <a xlink:href="#Alasca" @touchstart="handleClick" @click="handleClick" class="estado" name="Alaska" id="AK">

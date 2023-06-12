@@ -1,43 +1,48 @@
 <script lang="ts" setup>
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import { useFullscreen, useLocalStorage } from '@vueuse/core';
+import { useFullscreen } from '@vueuse/core';
 import { useGame } from '../composables/useGame';
 import useMobile from '../composables/useMobile';
-import { Player } from '../constant/interfaces';
+import useWatchers from '../composables/useWatchers';
 
 // components
 import ModalWaitAction from '../components/ModalWaitAction.vue';
-import Debug from '../components/Debug.vue';
 import GameScreen from '../components/GameScreen.vue';
+import { Player } from '../constant/interfaces';
 
 
 const { game } = useGame();
 const mobileDetect = useMobile();
 const route = useRoute();
-const myPlayerId = useLocalStorage('playerUUID', 'not set');
-const visible = ref(false);
+
+// watchers
+const { registerDisplayPlayerCurrentLocation } = useWatchers();
 
 // get from path the :id using route
-const {isFullscreen, toggle } = useFullscreen();
+const { isFullscreen, toggle } = useFullscreen();
 
 const myPlayer = computed(() => {
-  if(!game.value) return;
-  
-  return game.value.players.find((player: Player) => player.id === myPlayerId.value);
+  if (!game.value) return;
+  const myPlayerId = localStorage.getItem('playerUUID');
+  return game.value.players.find((player: Player) => player.id === myPlayerId);
 })
 
 onMounted(async () => {
   // read :id
   const id = route.params.id as string;
-  if(!localStorage.getItem('gameId')) {
+
+  // if isn't stored localStorage gameId store it
+  if (!localStorage.getItem('gameId')) {
     localStorage.setItem('gameId', id);
   }
-  // if isn't stored localStorage gameId store it
-  if(!isFullscreen.value && mobileDetect.isMobile) {
+  if (!isFullscreen.value && mobileDetect.isMobile) {
     toggle();
   };
 
+  // register watchers
+  registerDisplayPlayerCurrentLocation(myPlayer);
+  
 })
 
 
@@ -46,19 +51,6 @@ onMounted(async () => {
   <div class="min-w-full">
     <GameScreen />
     <ModalWaitAction />
-    <q-toggle v-model="visible" label="Game details" class="absolute bottom-0" />
-
-    <q-slide-transition>
-      <div v-show="visible">
-      <q-card>
-        My Player:
-        {{  myPlayer }}
-      </q-card>
-      <Debug />
-        <pre>
-          game: {{ game }}
-        </pre>
-      </div>
-    </q-slide-transition>
+    <pre class="z-[9999]">current player: {{ myPlayer }}</pre>
   </div>
 </template>
