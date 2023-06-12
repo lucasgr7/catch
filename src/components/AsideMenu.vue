@@ -1,36 +1,27 @@
 <script lang="ts" setup>
-import useAmericaMap from '../composables/useAmericaMap';
-import { useSettings } from '../composables/useSettings';
-import PlayerPanel from './PlayerPanel.vue';
+import useAmericaMap from "../composables/useAmericaMap";
+import { useSettings } from "../composables/useSettings";
+import PlayerPanel from "./PlayerPanel.vue";
 const { doFullScreen } = useSettings();
-const { addCircleToState} = useAmericaMap();
-
+const { addCircleToState } = useAmericaMap();
 </script>
 
 <template>
   <div class="conteiner">
     <PlayerPanel />
-    <div class="buttons-conteiner">
-      <el-row>
-        <div class="power-up-button">
-          <img src="/src/assets/icons/radar.png" alt="radar" />
-        </div>
-      </el-row>
-      <el-row>
-        <div class="power-up-button">
-          <img src="/src/assets/icons/computer.png" alt="computer" />
-        </div>
-      </el-row>
-      <el-row>
-        <div class="power-up-button">
-          <img src="/src/assets/icons/satellite.png" alt="satellite" />
-        </div>
-      </el-row>
-    </div>
+    <q-container class="grid mx-10">
+      <div class="power-up-button">
+        <img src="/src/assets/icons/radar.png" alt="radar" />
+      </div>
+      <div class="power-up-button">
+        <img src="/src/assets/icons/computer.png" alt="computer" />
+      </div>
+      <div class="power-up-button">
+        <img src="/src/assets/icons/satellite.png" alt="satellite" />
+      </div>
+    </q-container>
     <div class="grid mx-2">
-      <q-btn @click="doFullScreen" type="glossy" color="red">
-        Full screen
-      </q-btn>
+      <q-btn @click="doFullScreen" type="glossy" color="red"> Full screen </q-btn>
       <q-btn @click="addCircleToState('NY')" type="glossy" color="red">
         Add to New York
       </q-btn>
@@ -70,16 +61,23 @@ const { addCircleToState} = useAmericaMap();
       cursor: pointer;
     }
   }
-
 }
 
-@media screen and (max-width: 820px) {
+@media screen and (max-width: 900px) {
   .conteiner {
+    width: 8vw;
     height: 180vh;
-    .buttons-conteiner{
-        .power-up-button {
-          margin-left: 10vh;
-        }
+    span {
+      font-size: 8px;
+      margin-left: 5vh;
+    }
+    .power-up-button {
+      width: 8vh;
+      height: 8vh;
+      img {
+        width: 5vh;
+        height: 5vh;
+      }
     }
   }
 }
